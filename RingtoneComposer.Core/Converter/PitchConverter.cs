@@ -43,6 +43,9 @@ namespace RingtoneComposer.Core.Converter
             if (stringNormalized.Contains("#"))
                 stringNormalized = String.Concat(stringNormalized.Replace("#", ""), "sharp");
 
+            if (!Enum.IsDefined(typeof(Pitches), stringNormalized))
+                throw new ArgumentOutOfRangeException("s");
+
             Pitches result;
             if (!Enum.TryParse(stringNormalized, false, out result))
                 throw new InvalidCastException();

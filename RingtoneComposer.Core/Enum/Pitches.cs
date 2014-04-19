@@ -2,7 +2,7 @@
 {
     public enum Pitches
     {
-        C,
+        C = 20,
         Csharp,
         D,
         Dsharp,

@@ -53,7 +53,6 @@
     </Otherwise>
   </Choose>
   <ItemGroup>
-    <Compile Include="Converter\NoteEnumConverterTest.cs" />
     <Compile Include="Converter\DurationConverterTest.cs" />
     <Compile Include="Converter\PitchConverterTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

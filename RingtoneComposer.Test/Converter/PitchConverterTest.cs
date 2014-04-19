@@ -26,5 +26,61 @@ namespace RingtoneComposer.Test.Converter
             Assert.AreEqual("G", converter.ToString(Pitches.G));
             Assert.AreEqual("G#", converter.ToString(Pitches.Gsharp));
         }
+
+        [TestMethod]
+        [ExpectedException(typeof(ArgumentNullException))]
+        public void Parse_Fail1()
+        {
+            converter.Parse(null);
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(ArgumentException))]
+        public void Parse_Fail2()
+        {
+            converter.Parse(string.Empty);
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(ArgumentException))]
+        public void Parse_Fail3()
+        {
+            converter.Parse(" ");
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(ArgumentOutOfRangeException))]
+        public void Parse_Fail4()
+        {
+            converter.Parse("1");
+        }
+
+        [TestMethod]
+        public void Parse_Success()
+        {
+            // Withspaces
+            Assert.AreEqual(Pitches.Csharp, this.converter.Parse(" C# "));
+
+            // Lower case
+            Assert.AreEqual(Pitches.D, this.converter.Parse("d"));
+            Assert.AreEqual(Pitches.Dsharp, this.converter.Parse("d#"));
+
+            // Withespaces + lower case
+            Assert.AreEqual(Pitches.Fsharp, this.converter.Parse(" f# "));
+
+            // All values
+            Assert.AreEqual(Pitches.A, this.converter.Parse("A"));
+            Assert.AreEqual(Pitches.Asharp, this.converter.Parse("A#"));
+            Assert.AreEqual(Pitches.B, this.converter.Parse("B"));
+            Assert.AreEqual(Pitches.C, this.converter.Parse("C"));
+            Assert.AreEqual(Pitches.Csharp, this.converter.Parse("C#"));
+            Assert.AreEqual(Pitches.D, this.converter.Parse("D"));
+            Assert.AreEqual(Pitches.Dsharp, this.converter.Parse("D#"));
+            Assert.AreEqual(Pitches.E, this.converter.Parse("E"));
+            Assert.AreEqual(Pitches.F, this.converter.Parse("F"));
+            Assert.AreEqual(Pitches.Fsharp, this.converter.Parse("F#"));
+            Assert.AreEqual(Pitches.G, this.converter.Parse("G"));
+            Assert.AreEqual(Pitches.Gsharp, this.converter.Parse("G#"));
+        }
     }
 }
