@@ -1,6 +1,6 @@
-﻿using System.Collections.Generic;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using RingtoneComposer.Core;
+using System.Collections.Generic;
 
 namespace RingtoneComposer.Test
 {

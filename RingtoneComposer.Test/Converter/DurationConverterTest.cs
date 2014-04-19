@@ -25,52 +25,40 @@ namespace RingtoneComposer.Test.Converter
         [ExpectedException(typeof(ArgumentNullException))]
         public void Parse_Fail1()
         {
-            Assert.AreNotEqual(Durations.Whole, converter.Parse(null));
+            converter.Parse(null);
         }
 
         [TestMethod]
-        [ExpectedException(typeof(ArgumentException))]
+        [ExpectedException(typeof(ArgumentOutOfRangeException))]
         public void Parse_Fail2()
         {
-            Assert.AreNotEqual(Durations.Whole, converter.Parse(string.Empty));
+            converter.Parse(string.Empty);
         }
 
         [TestMethod]
-        [ExpectedException(typeof(ArgumentException))]
+        [ExpectedException(typeof(ArgumentOutOfRangeException))]
         public void Parse_Fail3()
         {
-            Assert.AreNotEqual(Durations.Whole, converter.Parse(" "));
+            converter.Parse(" ");
         }
 
         [TestMethod]
         [ExpectedException(typeof(ArgumentOutOfRangeException))]
         public void Parse_Fail4()
         {
-            Assert.AreNotEqual(Durations.Whole, converter.Parse("a"));
+            converter.Parse("a");
         }
 
         [TestMethod]
         [ExpectedException(typeof(ArgumentOutOfRangeException))]
         public void Parse_Fail5()
         {
-            Assert.AreNotEqual(Durations.Whole, converter.Parse("3"));
+            converter.Parse("3");
         }
 
         [TestMethod]
         public void Parse_Fail6()
         {
-            Assert.AreNotEqual(Durations.Whole, converter.Parse("2"));
-        }
-
-        [TestMethod]
-        [ExpectedException(typeof(ArgumentException), AllowDerivedTypes = true)]
-        public void Parse_Fail()
-        {
-            Assert.AreNotEqual(Durations.Whole, converter.Parse(null));
-            Assert.AreNotEqual(Durations.Whole, converter.Parse(string.Empty));
-            Assert.AreNotEqual(Durations.Whole, converter.Parse(" "));
-            Assert.AreNotEqual(Durations.Whole, converter.Parse("3"));
-            Assert.AreNotEqual(Durations.Whole, converter.Parse("a"));
             Assert.AreNotEqual(Durations.Whole, converter.Parse("2"));
         }
 

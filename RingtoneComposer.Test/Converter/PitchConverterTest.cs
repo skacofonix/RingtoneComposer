@@ -1,7 +1,7 @@
-﻿using System;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
-using RingtoneComposer.Core.Converter;
+﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using RingtoneComposer.Core;
+using RingtoneComposer.Core.Converter;
+using System;
 
 namespace RingtoneComposer.Test.Converter
 {
@@ -35,14 +35,14 @@ namespace RingtoneComposer.Test.Converter
         }
 
         [TestMethod]
-        [ExpectedException(typeof(ArgumentException))]
+        [ExpectedException(typeof(ArgumentOutOfRangeException))]
         public void Parse_Fail2()
         {
             converter.Parse(string.Empty);
         }
 
         [TestMethod]
-        [ExpectedException(typeof(ArgumentException))]
+        [ExpectedException(typeof(ArgumentOutOfRangeException))]
         public void Parse_Fail3()
         {
             converter.Parse(" ");

@@ -1,15 +1,9 @@
-﻿using Microsoft.Phone.BackgroundAudio;
-using Microsoft.Phone.Controls;
-using Microsoft.Xna.Framework;
+﻿using Microsoft.Phone.Controls;
 using Microsoft.Xna.Framework.Audio;
 using RingtoneComposer.Core;
 using RingtoneComposer.Core.Converter;
 using RingtoneComposer.Core.ViewModels;
-using System;
-using System.IO;
-using System.IO.IsolatedStorage;
 using System.Windows;
-using System.Windows.Resources;
 
 namespace RingtoneComposer.WindowsPhone
 {

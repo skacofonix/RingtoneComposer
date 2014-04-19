@@ -1,11 +1,11 @@
-﻿using System;
+﻿using Microsoft.Phone.Controls;
+using Microsoft.Phone.Shell;
+using RingtoneComposer.WindowsPhone.Resources;
+using System;
 using System.Diagnostics;
 using System.Windows;
 using System.Windows.Markup;
 using System.Windows.Navigation;
-using Microsoft.Phone.Controls;
-using Microsoft.Phone.Shell;
-using RingtoneComposer.WindowsPhone.Resources;
 
 namespace RingtoneComposer.WindowsPhone
 {

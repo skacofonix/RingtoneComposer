@@ -1,8 +1,8 @@
-﻿using System;
+﻿using RingtoneComposer.Core.Converter;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using RingtoneComposer.Core.Converter;
 
 namespace RingtoneComposer.Core
 {

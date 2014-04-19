@@ -36,9 +36,6 @@ namespace RingtoneComposer.Core.Converter
             if (s == null)
                 throw new ArgumentNullException();
 
-            if (string.IsNullOrWhiteSpace(s))
-                throw new ArgumentException();
-
             var stringNormalized = s.Trim().ToUpperInvariant();
             if (stringNormalized.Contains("#"))
                 stringNormalized = String.Concat(stringNormalized.Replace("#", ""), "sharp");

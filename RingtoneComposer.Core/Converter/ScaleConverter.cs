@@ -14,9 +14,6 @@ namespace RingtoneComposer.Core.Converter
             if (s == null)
                 throw new ArgumentNullException("s");
 
-            if (string.IsNullOrWhiteSpace(s))
-                throw new ArgumentException("s");
-
             var stringNormalized = s.Trim();
             if(stringNormalized.Length != 1)
                 throw new ArgumentOutOfRangeException("s");
@@ -26,7 +23,7 @@ namespace RingtoneComposer.Core.Converter
 
             Scales scale;
             if(!Enum.TryParse(stringNormalized, out scale))
-                throw new FormatException("s");
+                throw new InvalidCastException("s");
 
             return scale;
         }

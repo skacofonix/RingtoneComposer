@@ -14,11 +14,8 @@ namespace RingtoneComposer.Core.Converter
             if (s == null)
                 throw new ArgumentNullException();
 
-            if (string.IsNullOrWhiteSpace(s))
-                throw new ArgumentException();
-
             Durations result;
-            switch(s)
+            switch(s.Trim())
             {
                 case "1":
                     result = Durations.Whole;

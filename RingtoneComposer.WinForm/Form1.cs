@@ -1,8 +1,8 @@
-﻿using System;
+﻿using RingtoneComposer.Core;
+using RingtoneComposer.Core.Converter;
+using System;
 using System.IO;
 using System.Windows.Forms;
-using RingtoneComposer.Core;
-using RingtoneComposer.Core.Converter;
 
 namespace RingtoneComposer.WinForm
 {
