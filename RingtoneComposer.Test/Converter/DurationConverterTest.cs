@@ -84,5 +84,16 @@ namespace RingtoneComposer.Test.Converter
             Assert.AreEqual(Durations.Sixteenth, converter.Parse("16"));
             Assert.AreEqual(Durations.ThirtySecond, converter.Parse("32"));
         }
+
+        [TestMethod]
+        public void GetValue_Success()
+        {
+            Assert.AreEqual(1, converter.GetValue(Durations.Whole));
+            Assert.AreEqual(1d/2, converter.GetValue(Durations.Half));
+            Assert.AreEqual(1d/4, converter.GetValue(Durations.Quarter));
+            Assert.AreEqual(1d/8, converter.GetValue(Durations.Eight));
+            Assert.AreEqual(1d/16, converter.GetValue(Durations.Sixteenth));
+            Assert.AreEqual(1d/32, converter.GetValue(Durations.ThirtySecond));
+        }
     }
 }
