@@ -13,7 +13,6 @@
         Gsharp,
         A,
         Asharp,
-        B,
-        P
+        B
     }
 }

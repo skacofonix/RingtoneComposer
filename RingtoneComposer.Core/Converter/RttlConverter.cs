@@ -83,14 +83,18 @@ namespace RingtoneComposer.Core.Converter
                 var scaleString = string.IsNullOrEmpty(m.Groups[4].Value) ? defaultScale : m.Groups[4].Value;
 
                 var duration = DurationConverter.Parse(durationString);
-                var pitch = PitchConverter.Parse(pitchString);
                 var scale = ScaleConverter.Parse(scaleString);
 
                 TuneElement tuneElement;
-                if (pitch == Pitches.P)
+                if (pitchString == Pause)
+                {
                     tuneElement = new Pause(duration);
+                }
                 else
+                {
+                    var pitch = PitchConverter.Parse(pitchString);
                     tuneElement = new Note(pitch, scale, duration);
+                }
                 tuneElement.Dotted = dotted;
                 tuneElementList.Add(tuneElement);
             }
