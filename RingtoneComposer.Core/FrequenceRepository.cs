@@ -7,54 +7,6 @@ namespace RingtoneComposer.Core
     {
         private readonly List<NoteFrequence> noteFrequenceArray = new List<NoteFrequence>
         {
-            //new NoteFrequence(Pitches.C,Scales.Zero,65.41),
-            //new NoteFrequence(Pitches.Csharp,Scales.Zero,69.3),
-            //new NoteFrequence(Pitches.D,Scales.Zero,73.42),
-            //new NoteFrequence(Pitches.Dsharp,Scales.Zero,77.78),
-            //new NoteFrequence(Pitches.E,Scales.Zero,82.41),
-            //new NoteFrequence(Pitches.F,Scales.Zero,87.31),
-            //new NoteFrequence(Pitches.Fsharp,Scales.Zero,92.5),
-            //new NoteFrequence(Pitches.G,Scales.Zero,98),
-            //new NoteFrequence(Pitches.Gsharp,Scales.Zero,103.83),
-            //new NoteFrequence(Pitches.A,Scales.Zero,110),
-            //new NoteFrequence(Pitches.Asharp,Scales.Zero,116.54),
-            //new NoteFrequence(Pitches.B,Scales.Zero,123.47),
-            //new NoteFrequence(Pitches.C,Scales.One,65.41),
-            //new NoteFrequence(Pitches.Csharp,Scales.One,69.3),
-            //new NoteFrequence(Pitches.D,Scales.One,73.42),
-            //new NoteFrequence(Pitches.Dsharp,Scales.One,77.78),
-            //new NoteFrequence(Pitches.E,Scales.One,82.41),
-            //new NoteFrequence(Pitches.F,Scales.One,87.31),
-            //new NoteFrequence(Pitches.Fsharp,Scales.One,92.5),
-            //new NoteFrequence(Pitches.G,Scales.One,98),
-            //new NoteFrequence(Pitches.Gsharp,Scales.One,103.83),
-            //new NoteFrequence(Pitches.A,Scales.One,110),
-            //new NoteFrequence(Pitches.Asharp,Scales.One,116.54),
-            //new NoteFrequence(Pitches.B,Scales.One,123.47),
-            //new NoteFrequence(Pitches.C,Scales.Two,130.81),
-            //new NoteFrequence(Pitches.Csharp,Scales.Two,138.59),
-            //new NoteFrequence(Pitches.D,Scales.Two,146.83),
-            //new NoteFrequence(Pitches.Dsharp,Scales.Two,155.56),
-            //new NoteFrequence(Pitches.E,Scales.Two,164.81),
-            //new NoteFrequence(Pitches.F,Scales.Two,174.61),
-            //new NoteFrequence(Pitches.Fsharp,Scales.Two,185),
-            //new NoteFrequence(Pitches.G,Scales.Two,196),
-            //new NoteFrequence(Pitches.Gsharp,Scales.Two,207.65),
-            //new NoteFrequence(Pitches.A,Scales.Two,220),
-            //new NoteFrequence(Pitches.Asharp,Scales.Two,233.08),
-            //new NoteFrequence(Pitches.B,Scales.Two,246.94),
-            //new NoteFrequence(Pitches.C,Scales.Three,261.63),
-            //new NoteFrequence(Pitches.Csharp,Scales.Three,277.18),
-            //new NoteFrequence(Pitches.D,Scales.Three,293.66),
-            //new NoteFrequence(Pitches.Dsharp,Scales.Three,311.13),
-            //new NoteFrequence(Pitches.E,Scales.Three,329.63),
-            //new NoteFrequence(Pitches.F,Scales.Three,349.23),
-            //new NoteFrequence(Pitches.Fsharp,Scales.Three,369.99),
-            //new NoteFrequence(Pitches.G,Scales.Three,392),
-            //new NoteFrequence(Pitches.Gsharp,Scales.Three,415.3),
-            //new NoteFrequence(Pitches.A,Scales.Three,440),
-            //new NoteFrequence(Pitches.Asharp,Scales.Three,466.16),
-            //new NoteFrequence(Pitches.B,Scales.Three,493.88),
             new NoteFrequence(Pitches.C,Scales.Four,523.25),
             new NoteFrequence(Pitches.Csharp,Scales.Four,554.37),
             new NoteFrequence(Pitches.D,Scales.Four,587.33),
@@ -105,12 +57,20 @@ namespace RingtoneComposer.Core
             new NoteFrequence(Pitches.B,Scales.Seven,7902.13)
         };
 
-        public double this[Pitches note, Scales octave]
+        public double this[Pitches pitch, Scales scale]
         {
             get
             {
-                return noteFrequenceArray.Where(w => w.Pitch.Equals(note) && w.Scale.Equals(octave)).Select(s => s.Frequence).FirstOrDefault();
+                return GetFrequence(pitch, scale);
             }
+        }
+
+        private double GetFrequence(Pitches pitch, Scales scale)
+        {
+            return noteFrequenceArray.Where(w => w.Pitch.Equals(pitch) && w.Scale.Equals(scale))
+                                     .Select(s => s.Frequence)
+                                     .FirstOrDefault();
+
         }
     }
 }
