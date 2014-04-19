@@ -11,19 +11,19 @@ namespace RingtoneComposer.Core.Converter
 
         public override string TuneElementPattern
         {
-            get { return @"([1|2|4|8|16|32]?)([-]|#?[a|A]|[b|B]|#?[c|C]|#?[d|D]|[e|E]|#?[f|F]|#?[g|G])(\.?)([1-4]?)"; }
+            get { return @"(1|2|4|8|16|32)?([-]|#?[A|C|D|F|G]|B|E)(\.)?([1-4]?)"; }
         }
-        
+
         public override string TuneElementDelimiter
         {
             get { return " "; }
         }
-        
+
         public override string Pause
         {
             get { return "-"; }
         }
-       
+
         public override int DefaultBpm
         {
             get { return 120; }
@@ -64,7 +64,7 @@ namespace RingtoneComposer.Core.Converter
         {
             var tuneElements = new List<TuneElement>();
 
-            var regex = new Regex(TuneElementPattern);
+            var regex = new Regex(TuneElementPattern, RegexOptions.IgnoreCase);
             foreach (Match match in regex.Matches(s))
             {
                 var duration = DurationConverter.Parse(match.Groups[1].Value);

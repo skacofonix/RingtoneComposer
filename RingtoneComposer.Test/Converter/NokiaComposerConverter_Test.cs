@@ -7,53 +7,53 @@ using System.Collections.Generic;
 namespace RingtoneComposer.Test
 {
     [TestClass]
-    public class TuneReadNokiaComposerSerializerTeste
+    public class NokiaComposerConverterTest
     {
+        private NokiaComposerConverter converter = new NokiaComposerConverter();
+
         [TestMethod]
         [ExpectedException(typeof(ArgumentNullException))]
-        public void Deserialize_Throw_ArgumentNullException()
+        public void Parse_Fail1()
         {
-            var nokiaComposerConverter = new NokiaComposerConverter();
-
-            Assert.IsNull(nokiaComposerConverter.Parse(null));
+            converter.Parse(null);
         }
 
         [TestMethod]
         [ExpectedException(typeof(ArgumentException))]
-        public void Deserialize_throw_ArgumentException()
+        public void Parse_Fail2()
         {
-            var nokiaComposerConverter = new NokiaComposerConverter();
-
-            Assert.IsNull(nokiaComposerConverter.Parse(String.Empty));
-            Assert.IsNull(nokiaComposerConverter.Parse(" "));
+            converter.Parse(String.Empty);
         }
 
         [TestMethod]
-        public void Deserialize_Success()
+        [ExpectedException(typeof(ArgumentException))]
+        public void Parse_Fail3()
+        {
+            converter.Parse(" ");
+        }
+
+        [TestMethod]
+        public void Parse_Success()
         {
             const string partition = "8#f1 16#f1 16#f1 16#f1 8b1 32#d2 8b1 32#g1 8e1 8#c2 32a1 8#a1 32#c2 8#a1 32#f1 8#d1 8b1 32#f1 8b1 32#d 28b1 32#g1 8e1 8#c2 32b1 8#a1 32#f1 8#g1 32#a1 4b1 32#f1 8b1 32#d2 8b1 32#g1 8e1 8#c2 32a1 8#a1 32#c28#a1 32#f1 8#d1 8b1 32#f1 8b1 32#d2 8b1 32#g1 8e1";
 
-            var nokiaComposerConverter = new NokiaComposerConverter();
+            var tune = converter.Parse(partition);
 
-            var t = nokiaComposerConverter.Parse(partition);
+            Assert.IsNotNull(tune);
 
-            Assert.IsNotNull(t);
+            Assert.IsTrue(tune.TuneElementList != null && tune.TuneElementList.Count > 0);
         }
 
         [TestMethod]
         [ExpectedException(typeof(ArgumentNullException))]
-        public void Serialize_Throw_ArgumentNullException()
+        public void ToString_Fail1()
         {
-            var nokiaComposerConverter = new NokiaComposerConverter();
-
-            nokiaComposerConverter.ToString(null);
+            converter.ToString(null);
         }
 
         [TestMethod]
-        public void Serialize_Success()
+        public void ToString_Success()
         {
-            var nokiaComposerConverter = new NokiaComposerConverter();
-
             var t = new Tune(new List<TuneElement>
               {  
                 new Note(Pitches.A, Scales.Four, Durations.Whole),
@@ -63,7 +63,7 @@ namespace RingtoneComposer.Test
               100
             );
 
-            Assert.AreEqual(nokiaComposerConverter.ToString(t), "A 2A#2 4- ");
+            Assert.AreEqual(converter.ToString(t), "A 2A#2 4- ");
         }
     }
 }
