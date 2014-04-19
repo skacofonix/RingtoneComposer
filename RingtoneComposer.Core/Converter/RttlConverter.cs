@@ -87,7 +87,7 @@ namespace RingtoneComposer.Core.Converter
                 var scale = ScaleConverter.Parse(scaleString);
 
                 TuneElement tuneElement;
-                if (pitch == Pitchs.P)
+                if (pitch == Pitches.P)
                     tuneElement = new Pause(duration);
                 else
                     tuneElement = new Note(pitch, scale, duration);

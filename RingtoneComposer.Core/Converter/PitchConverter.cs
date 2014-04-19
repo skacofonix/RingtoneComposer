@@ -2,36 +2,36 @@
 
 namespace RingtoneComposer.Core.Converter
 {
-    public class PitchConverter : IConverter<Pitchs>
+    public class PitchConverter : IConverter<Pitches>
     {
-        public string ToString(Pitchs noteEnum)
+        public string ToString(Pitches noteEnum)
         {
             switch (noteEnum)
             {
-                case Pitchs.A:
-                case Pitchs.B:
-                case Pitchs.C:
-                case Pitchs.D:
-                case Pitchs.E:
-                case Pitchs.F:
-                case Pitchs.G:
+                case Pitches.A:
+                case Pitches.B:
+                case Pitches.C:
+                case Pitches.D:
+                case Pitches.E:
+                case Pitches.F:
+                case Pitches.G:
                     return noteEnum.ToString();
-                case Pitchs.Asharp:
+                case Pitches.Asharp:
                     return "A#";
-                case Pitchs.Csharp:
+                case Pitches.Csharp:
                     return "C#";
-                case Pitchs.Dsharp:
+                case Pitches.Dsharp:
                     return "D#";
-                case Pitchs.Fsharp:
+                case Pitches.Fsharp:
                     return "F#";
-                case Pitchs.Gsharp:
+                case Pitches.Gsharp:
                     return "G#";
                 default :
                     throw new ArgumentOutOfRangeException("noteEnum");
             }
         }
 
-        public Pitchs Parse(string s)
+        public Pitches Parse(string s)
         {
             if (s == null)
                 throw new ArgumentNullException();
@@ -43,7 +43,7 @@ namespace RingtoneComposer.Core.Converter
             if (stringNormalized.Contains("#"))
                 stringNormalized = String.Concat(stringNormalized.Replace("#", ""), "sharp");
 
-            Pitchs result;
+            Pitches result;
             if (!Enum.TryParse(stringNormalized, false, out result))
                 throw new InvalidCastException();
 

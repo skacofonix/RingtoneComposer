@@ -2,13 +2,13 @@
 {
     public class Note : TuneElement
     {
-        public Pitchs Pitch { get; set; }
+        public Pitches Pitch { get; set; }
         public Scales Scale { get; set; }
 
         public Note()
         { }
 
-        public Note(Pitchs pitch, Scales scale, Durations duration)
+        public Note(Pitches pitch, Scales scale, Durations duration)
             :base(duration)
         {
             Pitch = pitch;

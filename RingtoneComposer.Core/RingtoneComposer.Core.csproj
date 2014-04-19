@@ -55,7 +55,7 @@
     <Compile Include="Oscillator\SineOscillator.cs" />
     <Compile Include="Oscillator\SquareOscilator.cs" />
     <Compile Include="Pause.cs" />
-    <Compile Include="Enum\Pitchs.cs" />
+    <Compile Include="Enum\Pitches.cs" />
     <Compile Include="IPlayer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Enum\Scales.cs" />

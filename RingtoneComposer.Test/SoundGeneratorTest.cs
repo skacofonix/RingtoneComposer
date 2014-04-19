@@ -16,7 +16,7 @@ namespace RingtoneComposer.Test
             var oscillator = new SineOscillator(sampleRate);
             var frequenceRepository = new FrequenceRepository();
 
-            var A440 = frequenceRepository[Pitchs.A, Scales.Four];
+            var A440 = frequenceRepository[Pitches.A, Scales.Four];
 
             var data = new List<double>();
             oscillator.SetFrequency(A440);

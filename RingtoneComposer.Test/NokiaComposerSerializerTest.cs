@@ -56,8 +56,8 @@ namespace RingtoneComposer.Test
 
             var t = new Tune(new List<TuneElement>
               {  
-                new Note(Pitchs.A, Scales.Four, Durations.Whole),
-                new Note(Pitchs.Asharp, Scales.Five, Durations.Half),
+                new Note(Pitches.A, Scales.Four, Durations.Whole),
+                new Note(Pitches.Asharp, Scales.Five, Durations.Half),
                 new Pause(Durations.Quarter)
               },
               100

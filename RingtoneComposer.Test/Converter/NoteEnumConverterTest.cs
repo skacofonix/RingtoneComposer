@@ -18,43 +18,43 @@ namespace RingtoneComposer.Test
         [TestMethod]
         public void ParseExactString_Success()
         {
-            Assert.AreEqual(Pitchs.A, this.converter.Parse("A"));
-            Assert.AreEqual(Pitchs.Asharp, this.converter.Parse("#A"));
-            Assert.AreEqual(Pitchs.B, this.converter.Parse("B"));
-            Assert.AreEqual(Pitchs.C, this.converter.Parse("C"));
-            Assert.AreEqual(Pitchs.Csharp, this.converter.Parse("C#"));
-            Assert.AreEqual(Pitchs.D, this.converter.Parse("D"));
-            Assert.AreEqual(Pitchs.Dsharp, this.converter.Parse("D#"));
-            Assert.AreEqual(Pitchs.E, this.converter.Parse("E"));
-            Assert.AreEqual(Pitchs.F, this.converter.Parse("F"));
-            Assert.AreEqual(Pitchs.Fsharp, this.converter.Parse("F#"));
-            Assert.AreEqual(Pitchs.G, this.converter.Parse("G"));
-            Assert.AreEqual(Pitchs.Gsharp, this.converter.Parse("G#"));
+            Assert.AreEqual(Pitches.A, this.converter.Parse("A"));
+            Assert.AreEqual(Pitches.Asharp, this.converter.Parse("#A"));
+            Assert.AreEqual(Pitches.B, this.converter.Parse("B"));
+            Assert.AreEqual(Pitches.C, this.converter.Parse("C"));
+            Assert.AreEqual(Pitches.Csharp, this.converter.Parse("C#"));
+            Assert.AreEqual(Pitches.D, this.converter.Parse("D"));
+            Assert.AreEqual(Pitches.Dsharp, this.converter.Parse("D#"));
+            Assert.AreEqual(Pitches.E, this.converter.Parse("E"));
+            Assert.AreEqual(Pitches.F, this.converter.Parse("F"));
+            Assert.AreEqual(Pitches.Fsharp, this.converter.Parse("F#"));
+            Assert.AreEqual(Pitches.G, this.converter.Parse("G"));
+            Assert.AreEqual(Pitches.Gsharp, this.converter.Parse("G#"));
         }
 
         [TestMethod]
         public void ParseGoodString_Success()
         {
             // Withspaces
-            Assert.AreEqual(Pitchs.Csharp, this.converter.Parse(" C# "));
+            Assert.AreEqual(Pitches.Csharp, this.converter.Parse(" C# "));
 
             // Lower case
-            Assert.AreEqual(Pitchs.D, this.converter.Parse("d"));
-            Assert.AreEqual(Pitchs.Dsharp, this.converter.Parse("d#"));
+            Assert.AreEqual(Pitches.D, this.converter.Parse("d"));
+            Assert.AreEqual(Pitches.Dsharp, this.converter.Parse("d#"));
 
             // Withespaces + lower case
-            Assert.AreEqual(Pitchs.Fsharp, this.converter.Parse(" f# "));
+            Assert.AreEqual(Pitches.Fsharp, this.converter.Parse(" f# "));
         }
 
         [TestMethod]
         [ExpectedException(typeof(ArgumentNullException))]
         public void ParseWrongString_Fail()
         {
-            Assert.AreNotEqual(Pitchs.D, this.converter.Parse(null));
-            Assert.AreNotEqual(Pitchs.Csharp, this.converter.Parse(string.Empty));
-            Assert.AreNotEqual(Pitchs.Csharp, this.converter.Parse(""));
-            Assert.AreNotEqual(Pitchs.Csharp, this.converter.Parse(" "));
-            Assert.AreNotEqual(Pitchs.A, this.converter.Parse("1"));
+            Assert.AreNotEqual(Pitches.D, this.converter.Parse(null));
+            Assert.AreNotEqual(Pitches.Csharp, this.converter.Parse(string.Empty));
+            Assert.AreNotEqual(Pitches.Csharp, this.converter.Parse(""));
+            Assert.AreNotEqual(Pitches.Csharp, this.converter.Parse(" "));
+            Assert.AreNotEqual(Pitches.A, this.converter.Parse("1"));
         }
     }
 }

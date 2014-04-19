@@ -1,6 +1,6 @@
 ﻿namespace RingtoneComposer.Core
 {
-    public enum Pitchs
+    public enum Pitches
     {
         C,
         Csharp,
