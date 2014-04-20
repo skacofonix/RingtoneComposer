@@ -57,6 +57,7 @@
     <Compile Include="Converter\PitchConverterTest.cs" />
     <Compile Include="Converter\ScaleConverterTest.cs" />
     <Compile Include="Converter\RttlConverterTest.cs" />
+    <Compile Include="Converter\NokiaKeypressConverterTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Converter\NokiaComposerConverterTest.cs" />
     <Compile Include="SoundGeneratorTest.cs" />

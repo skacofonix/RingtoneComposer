@@ -38,6 +38,7 @@
   <ItemGroup>
     <Compile Include="Converter\DurationConverter.cs" />
     <Compile Include="Converter\IConverter.cs" />
+    <Compile Include="Converter\NokiaKeypressConverter.cs" />
     <Compile Include="Converter\PitchConverter.cs" />
     <Compile Include="Converter\ScaleConverter.cs" />
     <Compile Include="Converter\TuneConverter.cs" />
