@@ -43,10 +43,9 @@
     <Compile Include="Converter\ScaleConverter.cs" />
     <Compile Include="Converter\TuneConverter.cs" />
     <Compile Include="Enum\Durations.cs" />
-    <Compile Include="FrequenceRepository.cs" />
+    <Compile Include="Frequences.cs" />
     <Compile Include="NokiaComposer.cs" />
     <Compile Include="Note.cs" />
-    <Compile Include="NoteFrequence.cs" />
     <Compile Include="Oscillator\IDetuneable.cs" />
     <Compile Include="Oscillator\IOscillator.cs" />
     <Compile Include="Oscillator\RoyalSawToothOscilator.cs" />
@@ -57,7 +56,6 @@
     <Compile Include="Oscillator\SquareOscilator.cs" />
     <Compile Include="Pause.cs" />
     <Compile Include="Enum\Pitches.cs" />
-    <Compile Include="IPlayer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Enum\Scales.cs" />
     <Compile Include="Converter\NokiaComposerConverter.cs" />

@@ -7,7 +7,7 @@ namespace RingtoneComposer.Test
     [TestClass]
     public class FrequenceRepository_Test
     {
-        private FrequenceRepository frequenceRepository = new FrequenceRepository();
+        private Frequences frequenceRepository = new Frequences();
 
         [TestMethod]
         public void GetFrequence_Success()

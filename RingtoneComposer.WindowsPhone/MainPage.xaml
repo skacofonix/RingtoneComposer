@@ -52,7 +52,8 @@
                 <RowDefinition Height="87*"/>
             </Grid.RowDefinitions>
             <TextBox x:Name="textBoxPartition" HorizontalAlignment="Left" Height="500" Margin="10,10,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="436" Text="TocattaFugue:d=32,o=5,b=20:a#.,g#.,2a#,g#,f#,f,d#.,4d.,2d#,a#.,g#.,2a#,8f,8f#,8d,2d#,8d,8f,8g#,8b,8d6,4f6,4g#.,4f.,1g,32p,"/>
-            <Button Content="Play" HorizontalAlignment="Left" Margin="0,10,0,0" Grid.Row="1" VerticalAlignment="Top" Width="456" Click="ButtonPlay_Click"/>
+            <Button Content="Play" HorizontalAlignment="Left" Grid.Row="1" VerticalAlignment="Top" Width="226" Click="ButtonPlay_Click"/>
+            <Button Content="Save ringtone" HorizontalAlignment="Left" Margin="226,0,0,0" Grid.Row="1" VerticalAlignment="Top" Width="211" Click="Button_Click"/>
 
         </Grid>
 

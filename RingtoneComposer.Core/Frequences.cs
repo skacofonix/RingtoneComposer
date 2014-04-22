@@ -1,10 +1,26 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace RingtoneComposer.Core
 {
-    public class FrequenceRepository
+    public class Frequences
     {
+        public double this[Pitches pitch, Scales scale]
+        {
+            get
+            {
+                return GetFrequence(pitch, scale);
+            }
+        }
+
+        private double GetFrequence(Pitches pitch, Scales scale)
+        {
+            return noteFrequenceArray.Where(w => w.Pitch.Equals(pitch) && w.Scale.Equals(scale))
+                                     .Select(s => s.Frequence)
+                                     .FirstOrDefault();
+        }
+
         private readonly List<NoteFrequence> noteFrequenceArray = new List<NoteFrequence>
         {
             new NoteFrequence(Pitches.C,Scales.Four,523.25),
@@ -57,20 +73,18 @@ namespace RingtoneComposer.Core
             new NoteFrequence(Pitches.B,Scales.Seven,7902.13)
         };
 
-        public double this[Pitches pitch, Scales scale]
+        private class NoteFrequence
         {
-            get
+            public Pitches Pitch { get; private set; }
+            public Scales Scale { get; private set; }
+            public double Frequence { get; private set; }
+
+            public NoteFrequence(Pitches pitch, Scales scale, double frequence)
             {
-                return GetFrequence(pitch, scale);
+                Pitch = pitch;
+                Scale = scale;
+                Frequence = frequence;
             }
-        }
-
-        private double GetFrequence(Pitches pitch, Scales scale)
-        {
-            return noteFrequenceArray.Where(w => w.Pitch.Equals(pitch) && w.Scale.Equals(scale))
-                                     .Select(s => s.Frequence)
-                                     .FirstOrDefault();
-
         }
     }
 }

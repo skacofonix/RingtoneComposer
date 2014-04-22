@@ -1,8 +1,10 @@
 ﻿using Microsoft.Phone.Controls;
+using Microsoft.Phone.Tasks;
 using Microsoft.Xna.Framework.Audio;
 using RingtoneComposer.Core;
 using RingtoneComposer.Core.Converter;
 using RingtoneComposer.Core.ViewModels;
+using System;
 using System.Windows;
 
 namespace RingtoneComposer.WindowsPhone
@@ -11,11 +13,15 @@ namespace RingtoneComposer.WindowsPhone
     {
         private readonly ComposerViewModel model = new ComposerViewModel();
         private SoundEffectInstance player = null;
+        private SaveRingtoneTask saveRingtoneChooser = null;
 
         // Constructeur
         public MainPage()
         {
             InitializeComponent();
+
+            saveRingtoneChooser = new SaveRingtoneTask();
+            saveRingtoneChooser.Completed += new EventHandler<TaskEventArgs>(saveRingtoneChooser_Completed);
 
             model.PropertyChanged += (s, e) =>
             {
@@ -62,6 +68,32 @@ namespace RingtoneComposer.WindowsPhone
         {
             if (player != null && !player.IsDisposed && player.State == SoundState.Playing)
                 player.Stop();
+        }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void saveRingtoneChooser_Completed(object sender, TaskEventArgs e)
+        {
+            switch (e.TaskResult)
+            {
+                //Logic for when the ringtone was saved successfully
+                case TaskResult.OK:
+                    MessageBox.Show("Ringtone saved.");
+                    break;
+
+                //Logic for when the task was cancelled by the user
+                case TaskResult.Cancel:
+                    MessageBox.Show("Save cancelled.");
+                    break;
+
+                //Logic for when the ringtone could not be saved
+                case TaskResult.None:
+                    MessageBox.Show("Ringtone could not be saved.");
+                    break;
+            }
         }
 
         // Exemple de code pour la conception d'une ApplicationBar localisée

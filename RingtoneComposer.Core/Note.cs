@@ -3,6 +3,7 @@
     public class Note : TuneElement
     {
         public Pitches Pitch { get; set; }
+        
         public Scales Scale { get; set; }
 
         public bool IsSharpable

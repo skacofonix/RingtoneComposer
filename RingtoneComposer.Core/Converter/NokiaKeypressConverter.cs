@@ -182,6 +182,7 @@ namespace RingtoneComposer.Core.Converter
                 newDuration = Durations.ThirtySecond;
             else
                 newDuration = (Durations)((int)d * 2);
+            return newDuration;
             //return (Durations)((int)d * 2 % 32);
         }
 

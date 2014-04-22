@@ -29,7 +29,7 @@ namespace RingtoneComposer.Core
                 var note = tuneElement as Note;
                 if (note != null)
                 {
-                    var frequence = new FrequenceRepository()[note.Pitch, note.Scale];
+                    var frequence = new Frequences()[note.Pitch, note.Scale];
                     oscillator.SetFrequency(frequence);
                 }
                 else if (tuneElement is Pause)
@@ -99,5 +99,9 @@ namespace RingtoneComposer.Core
             return stream;
         }
 
+        public Stream ToneToMp3Stream(Tune tune)
+        {
+            return null;
+        }
     }
 }
