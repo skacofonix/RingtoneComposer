@@ -22,7 +22,7 @@ namespace RingtoneComposer.Core
                 throw new ArgumentNullException();
 
             var durationConverter = new DurationConverter();
-            double period = 60d / tune.Tempo;
+            double period = 1 / (60d / tune.Tempo);
 
             foreach (var tuneElement in tune.TuneElementList)
             {

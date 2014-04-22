@@ -44,7 +44,6 @@ namespace RingtoneComposer.Core.Converter
         {
             Durations previousDuration = defaultDuration;
             Scales previousScale = defaultScale;
-            Pitches? previousPitch = null;
             TuneElement currentTuneElement = null;
 
             var tuneList = new List<TuneElement>();

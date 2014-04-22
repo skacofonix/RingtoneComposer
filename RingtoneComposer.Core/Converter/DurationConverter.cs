@@ -14,37 +14,19 @@ namespace RingtoneComposer.Core.Converter
             if (s == null)
                 throw new ArgumentNullException();
 
-            Durations result;
-            switch(s.Trim())
-            {
-                case "1":
-                    result = Durations.Whole;
-                    break;
-                case "2":
-                    result = Durations.Half;
-                    break;
-                case "4":
-                    result = Durations.Quarter;
-                    break;
-                case "8":
-                    result = Durations.Eight;
-                    break;
-                case "16":
-                    result = Durations.Sixteenth;
-                    break;
-                case "32":
-                    result = Durations.ThirtySecond;
-                    break;
-                default :
-                    throw new ArgumentOutOfRangeException(s);
-            }
+            int integer;
+            if (!int.TryParse(s, out integer))
+                throw new ArgumentOutOfRangeException(s);
 
-            return result;
+            if (!Enum.IsDefined(typeof(Durations), integer))
+                throw new ArgumentOutOfRangeException(s);
+
+            return (Durations)Enum.ToObject(typeof(Durations), integer);
         }
 
         public double GetValue(Durations durationEnum)
         {
-            return 1d/(double) durationEnum;
+            return 1d/(double)durationEnum;
         }
     }
 }
