@@ -57,7 +57,6 @@ namespace RingtoneComposer.WindowsPhone
 
             using (var s = soundGenerator.TuneToWaveStream(tune))
             {
-                s.Position = 0;
                 var effect = SoundEffect.FromStream(s);
                 player = effect.CreateInstance();
                 player.Play();

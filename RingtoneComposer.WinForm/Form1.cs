@@ -2,6 +2,7 @@
 using RingtoneComposer.Core.Converter;
 using System;
 using System.IO;
+using System.Media;
 using System.Windows.Forms;
 
 namespace RingtoneComposer.WinForm
@@ -29,21 +30,19 @@ namespace RingtoneComposer.WinForm
             if (string.IsNullOrEmpty(partition))
                 return;
 
-            var tune = serializer;
+            var tune = serializer.Parse(partition);
             if (tune == null)
                 return;
             
-            var tempFile = Path.GetTempFileName();
-            //soundGenerator.TuneToWaveStream(tempFile, tune);
+            using(var stream = soundGenerator.TuneToWaveStream(tune))
+            using (var player = new SoundPlayer(stream))
+            {
+                player.Play();
+            }
 
-            //using (var player = new SoundPlayer(tempFile))
-            //{
-            //    player.Play();
-            //}
+            string output = serializer.ToString(tune);
 
-            //string output = serializer.Serialize(tune);
-
-            //textBoxPartition.Text = output;
+            textBoxPartition.Text = output;
         }
     }
 }

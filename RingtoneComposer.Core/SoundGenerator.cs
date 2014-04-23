@@ -96,6 +96,8 @@ namespace RingtoneComposer.Core
                 stream.WriteByte((byte)(sl >> 8));
             }
 
+            stream.Position = 0;
+
             return stream;
         }
 
