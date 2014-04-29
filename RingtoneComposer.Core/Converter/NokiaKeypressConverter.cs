@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 using System.Text.RegularExpressions;
 
 namespace RingtoneComposer.Core.Converter
@@ -34,7 +35,59 @@ namespace RingtoneComposer.Core.Converter
 
         protected override string InternalToString(Tune t)
         {
-            throw new NotImplementedException();
+            var sb = new StringBuilder();
+
+            foreach (var tuneElement in t.TuneElementList)
+            {
+                if (tuneElement.Dotted)
+                    sb.Append(OpenBracket);
+
+                var note = tuneElement as Note;
+                if (note != null)
+                {
+                    string key;
+                    switch(note.Pitch)
+                    {
+                        case Pitches.A:
+                        case Pitches.Asharp:
+                            key = "A";
+                            break;
+                        case Pitches.B:
+                            key = "B";
+                            break;
+                        case Pitches.C:
+                        case Pitches.Csharp:
+                            key = "C";
+                            break;
+                        case Pitches.D:
+                        case Pitches.Dsharp:
+                            key = "D";
+                            break;
+                        case Pitches.E:
+                            key = "E";
+                            break;
+                        case Pitches.F:
+                        case Pitches.Fsharp:
+                            key = "F";
+                            break;
+                        case Pitches.G:
+                        case Pitches.Gsharp:
+                            key = "G";
+                            break;
+                        default :
+                            throw new ArgumentOutOfRangeException("Pitch");
+                    }
+                }
+                else if(tuneElement is Pause)
+                {
+                    sb.Append("0");
+                }
+
+                if (tuneElement.Dotted)
+                    sb.Append(CloseBracket);
+            }
+
+            return sb.ToString();
         }
 
         protected override Tune InternalParse(string s)
