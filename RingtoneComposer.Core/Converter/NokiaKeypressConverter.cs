@@ -1,9 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Text.RegularExpressions;
-using System.Threading.Tasks;
 
 namespace RingtoneComposer.Core.Converter
 {
@@ -29,9 +27,8 @@ namespace RingtoneComposer.Core.Converter
             get { return 120; }
         }
 
-
         const Durations defaultDuration = Durations.Quarter;
-        const Scales defaultScale = Scales.Four;
+        const Scales defaultScale = Scales.Six;
         const string OpenBracket = "(";
         const string CloseBracket = ")";
 
@@ -45,24 +42,15 @@ namespace RingtoneComposer.Core.Converter
             Durations previousDuration = defaultDuration;
             Scales previousScale = defaultScale;
             TuneElement currentTuneElement = null;
-
-            var tuneList = new List<TuneElement>();
+            var tuneElementList = new List<TuneElement>();
 
             var regex = new Regex(TuneElementPattern);
+
             foreach (Match item in regex.Matches(s))
             {
                 bool dotted = false;
                 string key = string.Empty;
-                if(item.Groups[1].Value.Equals(OpenBracket) && item.Groups[3].Value.Equals(CloseBracket))
-                {
-                    key = item.Groups[2].Value;
-                    dotted = true;
-                }
-                else
-                {
-                    key = item.Groups[4].Value;
-                    dotted = false;
-                }
+                ReadKey(item, ref dotted, ref key);
 
                 if (string.IsNullOrEmpty(key))
                     throw new ArgumentNullException("key");
@@ -70,8 +58,8 @@ namespace RingtoneComposer.Core.Converter
                 char c = key.ToCharArray(0, 1).First();
                 if (c >= '1' && c <= '7')
                 {
-                    if(currentTuneElement != null)
-                         tuneList.Add(currentTuneElement);
+                    if (currentTuneElement != null)
+                        tuneElementList.Add(currentTuneElement);
 
                     var pitch = ConvertKeyToPitch(key);
 
@@ -81,57 +69,59 @@ namespace RingtoneComposer.Core.Converter
                 else if (c == '0')
                 {
                     currentTuneElement = new Pause(previousDuration);
+                    currentTuneElement.Dotted = dotted;
                 }
-                else if(c == '8')
+                else if (c == '8')
                 {
                     currentTuneElement.Duration = DecreaseDuration(currentTuneElement.Duration);
                 }
-                else if(c == '9')
+                else if (c == '9')
                 {
                     currentTuneElement.Duration = IncreaseDuration(currentTuneElement.Duration);
                 }
-                else if(c == '*')
+                else if (c == '*')
                 {
                     var currentNote = currentTuneElement as Note;
-                    if(currentNote != null)
+                    if (currentNote != null)
                         currentNote.Scale = IncreaseScale(currentNote.Scale);
                 }
-                else if(c == '#')
+                else if (c == '#')
                 {
                     var currentNote = currentTuneElement as Note;
-                    if(currentNote != null)
-                    {
-                        if(currentNote.IsSharpable)
-                        {
-                            var pitchArray = new Dictionary<Pitches, Pitches>()
-                            {
-                                {Pitches.A, Pitches.Asharp},
-                                {Pitches.C, Pitches.Csharp},
-                                {Pitches.D, Pitches.Dsharp},
-                                {Pitches.F, Pitches.Fsharp},
-                                {Pitches.G, Pitches.Gsharp}
-                            };
-
-                            if (currentNote.IsSharp)
-                                currentNote.Pitch = pitchArray.SingleOrDefault(pitch => pitch.Value.Equals(currentNote.Pitch)).Key;
-                            else
-                                currentNote.Pitch = pitchArray[currentNote.Pitch];
-                        }
-                    }
+                    if (currentNote != null)
+                        ToggleSharpNote(currentNote);
+                }
+                else
+                {
+                    throw new ArgumentOutOfRangeException(key);
                 }
             }
 
-            tuneList.Add(currentTuneElement);
+            tuneElementList.Add(currentTuneElement);
 
-            Tune tune = new Tune(tuneList);
+            var tune = new Tune(tuneElementList);
 
             return tune;
+        }
+
+        private static void ReadKey(Match item, ref bool dotted, ref string key)
+        {
+            if (item.Groups[1].Value.Equals(OpenBracket) && item.Groups[3].Value.Equals(CloseBracket))
+            {
+                key = item.Groups[2].Value;
+                dotted = true;
+            }
+            else
+            {
+                key = item.Groups[4].Value;
+                dotted = false;
+            }
         }
 
         private static Pitches ConvertKeyToPitch(string key)
         {
             Pitches pitch;
-            switch(key)
+            switch (key)
             {
                 case "1":
                     pitch = Pitches.C;
@@ -155,7 +145,7 @@ namespace RingtoneComposer.Core.Converter
                     pitch = Pitches.B;
                     break;
                 default:
-                    throw new ArgumentOutOfRangeException();
+                    throw new ArgumentOutOfRangeException(key);
             }
             return pitch;
         }
@@ -187,7 +177,27 @@ namespace RingtoneComposer.Core.Converter
 
         private static Scales IncreaseScale(Scales s)
         {
-            return (Scales)((int)s-4+1%4+4);
+            return (Scales)((int)s - 4 + 1 % 4 + 4);
+        }
+
+        private static void ToggleSharpNote(Note currentNote)
+        {
+            if (currentNote.IsSharpable)
+            {
+                var pitchArray = new Dictionary<Pitches, Pitches>()
+                            {
+                                {Pitches.A, Pitches.Asharp},
+                                {Pitches.C, Pitches.Csharp},
+                                {Pitches.D, Pitches.Dsharp},
+                                {Pitches.F, Pitches.Fsharp},
+                                {Pitches.G, Pitches.Gsharp}
+                            };
+
+                if (currentNote.IsSharp)
+                    currentNote.Pitch = pitchArray.SingleOrDefault(pitch => pitch.Value.Equals(currentNote.Pitch)).Key;
+                else
+                    currentNote.Pitch = pitchArray[currentNote.Pitch];
+            }
         }
     }
 }

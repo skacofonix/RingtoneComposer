@@ -6,13 +6,12 @@ namespace RingtoneComposer.Core
     {
         public string Name { get; set; }
 
-        public int Tempo { get; set; }
+        public int? Tempo { get; set; }
 
         public List<TuneElement> TuneElementList { get; private set; }
 
         public Tune()
         {
-            Tempo = 120;
         }
 
         public Tune(List<TuneElement> tuneElementList)

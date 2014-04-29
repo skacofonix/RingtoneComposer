@@ -36,6 +36,55 @@ namespace RingtoneComposer.Core.Converter
             get { return 63; }
         }
 
+        protected override string InternalToString(Tune t)
+        {
+            var sb = new StringBuilder();
+
+            sb.Append(t.Name);
+            sb.Append(TuneCommandDelimiter);
+
+            var defaultDuration = t.TuneElementList.GroupBy(g => g.Duration)
+                                                   .OrderByDescending(o => o.Count())
+                                                   .First().Key;
+
+            var defaultScale = t.TuneElementList.OfType<Note>()
+                                                .GroupBy(g => g.Scale)
+                                                .OrderByDescending(o => o.Count())
+                                                .First().Key;
+
+            sb.AppendFormat("d={0},o={1},b={2}",
+                DurationConverter.ToString(defaultDuration),
+                ScaleConverter.ToString(defaultScale),
+                t.Tempo.HasValue ? t.Tempo.Value.ToString(CultureInfo.InvariantCulture) : DefaultBpm.ToString());
+
+            sb.Append(TuneCommandDelimiter);
+
+            foreach (var tuneElement in t.TuneElementList)
+            {
+                if (tuneElement.Duration != defaultDuration)
+                    sb.Append(DurationConverter.ToString(tuneElement.Duration));
+
+                var note = tuneElement as Note;
+                if (note != null)
+                {
+                    sb.Append(PitchConverter.ToString(note.Pitch));
+                    if (note.Scale != defaultScale)
+                        sb.Append(ScaleConverter.ToString(note.Scale));
+                }
+                else if (tuneElement is Pause)
+                {
+                    sb.Append(Pause);
+                }
+
+                if (tuneElement.Dotted)
+                    sb.Append(Dot);
+
+                sb.Append(TuneElementDelimiter);
+            }
+
+            return sb.ToString();
+        }
+
         protected override Tune InternalParse(string s)
         {
             var parts = s.Split(TuneCommandDelimiter);
@@ -110,55 +159,6 @@ namespace RingtoneComposer.Core.Converter
             var regex = new Regex(pattern);
             var matches = regex.Match(input);
             return matches.Success ? matches.Groups[1].Value : null;
-        }
-
-        protected override string InternalToString(Tune t)
-        {
-            var sb = new StringBuilder();
-
-            sb.Append(t.Name);
-            sb.Append(TuneCommandDelimiter);
-
-            var defaultDuration = t.TuneElementList.GroupBy(g => g.Duration)
-                                                   .OrderByDescending(o => o.Count())
-                                                   .First().Key;
-
-            var defaultScale = t.TuneElementList.OfType<Note>()
-                                                .GroupBy(g => g.Scale)
-                                                .OrderByDescending(o => o.Count())
-                                                .First().Key;
-
-            sb.AppendFormat("d={0},o={1},b={2}",
-                DurationConverter.ToString(defaultDuration),
-                ScaleConverter.ToString(defaultScale),
-                t.Tempo.ToString(CultureInfo.InvariantCulture));
-
-            sb.Append(TuneCommandDelimiter);
-
-            foreach (var tuneElement in t.TuneElementList)
-            {
-                if (tuneElement.Duration != defaultDuration)
-                    sb.Append(DurationConverter.ToString(tuneElement.Duration));
-
-                var note = tuneElement as Note;
-                if (note != null)
-                {
-                    sb.Append(PitchConverter.ToString(note.Pitch));
-                    if (note.Scale != defaultScale)
-                        sb.Append(ScaleConverter.ToString(note.Scale));
-                }
-                else if (tuneElement is Pause)
-                {
-                    sb.Append(Pause);
-                }
-
-                if (tuneElement.Dotted)
-                    sb.Append(Dot);
-
-                sb.Append(TuneElementDelimiter);
-            }
-
-            return sb.ToString();
         }
     }
 }
