@@ -27,8 +27,8 @@ namespace RingtoneComposer.Core.Converter
             get { return 120; }
         }
 
-        const Durations defaultDuration = Durations.Quarter;
-        const Scales defaultScale = Scales.Six;
+        const Durations defaultDuration = Durations.Eight;
+        const Scales defaultScale = Scales.Four;
         const string OpenBracket = "(";
         const string CloseBracket = ")";
 
@@ -73,11 +73,13 @@ namespace RingtoneComposer.Core.Converter
                 }
                 else if (c == '8')
                 {
-                    currentTuneElement.Duration = DecreaseDuration(currentTuneElement.Duration);
+                    previousDuration = DecreaseDuration(currentTuneElement.Duration);
+                    currentTuneElement.Duration = previousDuration;
                 }
                 else if (c == '9')
                 {
-                    currentTuneElement.Duration = IncreaseDuration(currentTuneElement.Duration);
+                    previousDuration = IncreaseDuration(currentTuneElement.Duration);
+                    currentTuneElement.Duration = previousDuration;
                 }
                 else if (c == '*')
                 {

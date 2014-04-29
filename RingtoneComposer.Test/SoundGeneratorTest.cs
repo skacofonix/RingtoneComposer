@@ -25,6 +25,7 @@ namespace RingtoneComposer.Test
 
             //SoundGenerator.(data.ToArray(), data.Count, sampleRate);
 
+            Assert.Fail("Not yet totally implmented !");
         }
     }
 }

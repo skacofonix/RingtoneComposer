@@ -12,7 +12,7 @@ namespace RingtoneComposer.Test.Converter
         [TestMethod]
         public void Parse_Success()
         {
-            var partition = "(6)888#* (5)# 69999# 58888# 4# 4 (2)# (2)999 29# (6)8888# (5)# 69999# 488 4# 2 299# 288 4 5# 7 2* 49 (5)#** (4) 599 088888 88888";
+            var partition = "(6)888# (5)# 69999# 58888# 4# 4 (2)# (2)999 29# (6)8888# (5)# 69999# 488 4# 2 299# 288 4 5# 7 2* 49 (5)#** (4) 599 088888 88888";
 
             var tune = converter.Parse(partition);
             tune.Tempo = 100;
