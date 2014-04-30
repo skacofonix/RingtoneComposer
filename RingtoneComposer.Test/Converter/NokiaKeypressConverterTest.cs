@@ -55,8 +55,9 @@ namespace RingtoneComposer.Test.Converter
            );
 
             var expectedString = "6999 68#* 08";
+            var actualString = converter.ToString(tune);
 
-            Assert.AreEqual(converter.ToString(tune), expectedString);
+            Assert.AreEqual(expectedString, actualString);
         }
     }
 }
