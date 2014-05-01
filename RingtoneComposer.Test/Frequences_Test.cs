@@ -5,7 +5,7 @@ using System.Collections.Generic;
 namespace RingtoneComposer.Test
 {
     [TestClass]
-    public class FrequenceRepository_Test
+    public class Frequences_Test
     {
         private Frequences frequenceRepository = new Frequences();
 
