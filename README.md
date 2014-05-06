@@ -4,13 +4,12 @@ RingtoneComposer
 Ringtone composer based on RTTL format (like Nokia 3310). Xamarin cross-plateform application targeted for Windows Phone, Android and iPhone.
 
 Features
-- Parse RTTL
-- Parse Nokia Composer
-- Convert Nokia Composer To RTTL
-- Generate Wave from RTTL
+- Parse RTTL / Parse Nokia Composer / Nokia Keypress
+- Generate RTTL / Parse Nokia Composer / Nokia Keypress
+- Convert RTTL / Nokia Composer / Nokia Keypress ==> RTTL / Nokia Composer / Nokia Keypress
+- Generate Wave
 
 Roadmap
-- Parse Nokia Keypress
 - Convert Wave to mp3
 - Save mp3 as ringtone
 - Implement Android UI
