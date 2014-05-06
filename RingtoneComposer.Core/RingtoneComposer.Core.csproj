@@ -46,7 +46,6 @@
     <Compile Include="Frequences.cs" />
     <Compile Include="Helpers\DurationHelper.cs" />
     <Compile Include="Helpers\ScaleHelper.cs" />
-    <Compile Include="Helpers\NoteHelper.cs" />
     <Compile Include="NokiaComposer.cs" />
     <Compile Include="Note.cs" />
     <Compile Include="Oscillator\IDetuneable.cs" />

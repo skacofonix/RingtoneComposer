@@ -29,22 +29,22 @@ namespace RingtoneComposer.Core.Converter
             get { return 120; }
         }
 
-        const Durations DefaultDuration = Durations.Eight;
-        const Scales DefaultScale = Scales.Four;
-        const string OpenBracket = "(";
-        const string CloseBracket = ")";
-        const string KeyPause = "0";
-        const string KeyC = "1";
-        const string KeyD = "2";
-        const string KeyE = "3";
-        const string KeyF = "4";
-        const string KeyG = "5";
-        const string KeyA = "6";
-        const string KeyB = "7";
-        const string KeyDecreaseDuration = "8";
-        const string KeyIncreaseDuration = "9";
-        const string KeyIncreaseScale = "*";
-        const string KeyToggleSharp = "#";
+        private const Durations DefaultDuration = Durations.Eight;
+        private const Scales DefaultScale = Scales.Four;
+        private const string OpenBracket = "(";
+        private const string CloseBracket = ")";
+        private const string KeyPause = "0";
+        private const string KeyC = "1";
+        private const string KeyD = "2";
+        private const string KeyE = "3";
+        private const string KeyF = "4";
+        private const string KeyG = "5";
+        private string KeyA = "6";
+        private const string KeyB = "7";
+        private const string KeyDecreaseDuration = "8";
+        private const string KeyIncreaseDuration = "9";
+        private const string KeyIncreaseScale = "*";
+        private const string KeyToggleSharp = "#";
 
         protected override string InternalToString(Tune t)
         {
@@ -134,43 +134,6 @@ namespace RingtoneComposer.Core.Converter
             return previousScale;
         }
 
-        private static string ConvertPitchToKey(Note note)
-        {
-            string pitchString;
-            switch (note.Pitch)
-            {
-                case Pitches.A:
-                case Pitches.Asharp:
-                    pitchString = KeyA;
-                    break;
-                case Pitches.B:
-                    pitchString = KeyB;
-                    break;
-                case Pitches.C:
-                case Pitches.Csharp:
-                    pitchString = KeyC;
-                    break;
-                case Pitches.D:
-                case Pitches.Dsharp:
-                    pitchString = KeyD;
-                    break;
-                case Pitches.E:
-                    pitchString = KeyE;
-                    break;
-                case Pitches.F:
-                case Pitches.Fsharp:
-                    pitchString = KeyF;
-                    break;
-                case Pitches.G:
-                case Pitches.Gsharp:
-                    pitchString = KeyG;
-                    break;
-                default:
-                    throw new ArgumentOutOfRangeException("Pitch");
-            }
-            return pitchString;
-        }
-
         protected override Tune InternalParse(string s)
         {
             Durations previousDuration = DefaultDuration;
@@ -258,6 +221,43 @@ namespace RingtoneComposer.Core.Converter
             }
         }
 
+        private static string ConvertPitchToKey(Note note)
+        {
+            string pitchString;
+            switch (note.Pitch)
+            {
+                case Pitches.A:
+                case Pitches.Asharp:
+                    pitchString = KeyA;
+                    break;
+                case Pitches.B:
+                    pitchString = KeyB;
+                    break;
+                case Pitches.C:
+                case Pitches.Csharp:
+                    pitchString = KeyC;
+                    break;
+                case Pitches.D:
+                case Pitches.Dsharp:
+                    pitchString = KeyD;
+                    break;
+                case Pitches.E:
+                    pitchString = KeyE;
+                    break;
+                case Pitches.F:
+                case Pitches.Fsharp:
+                    pitchString = KeyF;
+                    break;
+                case Pitches.G:
+                case Pitches.Gsharp:
+                    pitchString = KeyG;
+                    break;
+                default:
+                    throw new ArgumentOutOfRangeException("Pitch");
+            }
+            return pitchString;
+        }
+
         private static Pitches ConvertKeyToPitch(string key)
         {
             Pitches pitch;
@@ -294,19 +294,10 @@ namespace RingtoneComposer.Core.Converter
         {
             if (currentNote.IsSharpable)
             {
-                var pitchArray = new Dictionary<Pitches, Pitches>()
-                            {
-                                {Pitches.A, Pitches.Asharp},
-                                {Pitches.C, Pitches.Csharp},
-                                {Pitches.D, Pitches.Dsharp},
-                                {Pitches.F, Pitches.Fsharp},
-                                {Pitches.G, Pitches.Gsharp}
-                            };
-
                 if (currentNote.IsSharp)
-                    currentNote.Pitch = pitchArray.SingleOrDefault(pitch => pitch.Value.Equals(currentNote.Pitch)).Key;
+                    currentNote.DecreasePitch();
                 else
-                    currentNote.Pitch = pitchArray[currentNote.Pitch];
+                    currentNote.IncreasePitch();
             }
         }
     }
