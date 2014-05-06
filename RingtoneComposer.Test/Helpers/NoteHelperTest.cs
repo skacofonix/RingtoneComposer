@@ -40,8 +40,12 @@ namespace RingtoneComposer.Test.Helpers
             {
                 foreach (var pitch in pitchArray)
                 {
+                    var expectedNote = new Note(pitch, scale, Durations.Quarter);
+
+                    Assert.AreEqual(expectedNote.Pitch, note.Pitch);
+                    Assert.AreEqual(expectedNote.Scale, note.Scale);
+
                     note.Increase();
-                    Assert.AreEqual(new Note(pitch, scale, Durations.Quarter), note);
                 }
             }
         }
@@ -55,8 +59,12 @@ namespace RingtoneComposer.Test.Helpers
             {
                 foreach (var pitch in pitchArray.Reverse())
                 {
-                    note.Increase();
-                    Assert.AreEqual(new Note(pitch, scale, Durations.Quarter), note);
+                    var expectedNote = new Note(pitch, scale, Durations.Quarter);
+
+                    Assert.AreEqual(expectedNote.Pitch, note.Pitch);
+                    Assert.AreEqual(expectedNote.Scale, note.Scale);
+
+                    note.Decrease();
                 }
             }
         }

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using RingtoneComposer.Core.Helpers;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -100,12 +101,12 @@ namespace RingtoneComposer.Core.Converter
                 {
                     if (currentDuration > tuneElement.Duration)
                     {
-                        currentDuration = IncreaseDuration(currentDuration);
+                        currentDuration = currentDuration.Increase();
                         sb.Append(KeyIncreaseDuration);
                     }
                     else
                     {
-                        currentDuration = DecreaseDuration(currentDuration);
+                        currentDuration = currentDuration.Decrease();
                         sb.Append(KeyDecreaseDuration);
                     }
                 } while (currentDuration != tuneElement.Duration);
@@ -124,7 +125,7 @@ namespace RingtoneComposer.Core.Converter
 
                 do
                 {
-                    currentScale = IncreaseScale(currentScale);
+                    currentScale = currentScale.Increase();
                     sb.Append(KeyIncreaseScale);
                 } while (currentScale != note.Scale);
 
@@ -212,18 +213,18 @@ namespace RingtoneComposer.Core.Converter
                         break;
 
                     case KeyDecreaseDuration:
-                        previousDuration = DecreaseDuration(currentTuneElement.Duration);
+                        previousDuration = previousDuration.Decrease();
                         currentTuneElement.Duration = previousDuration;
                         break;
 
                     case KeyIncreaseDuration:
-                        previousDuration = IncreaseDuration(currentTuneElement.Duration);
+                        previousDuration = previousDuration.Increase();
                         currentTuneElement.Duration = previousDuration;
                         break;
 
                     case KeyIncreaseScale:
                         if (currentNote != null)
-                            currentNote.Scale = IncreaseScale(currentNote.Scale);
+                            currentNote.Scale = currentNote.Scale.Increase();
                         break;
 
                     case KeyToggleSharp:
@@ -287,31 +288,6 @@ namespace RingtoneComposer.Core.Converter
                     throw new ArgumentOutOfRangeException(key);
             }
             return pitch;
-        }
-
-        private static Durations IncreaseDuration(Durations d)
-        {
-            Durations newDuration;
-            if (d == Durations.Whole)
-                newDuration = Durations.Whole;
-            else
-                newDuration = (Durations)((int)d / 2);
-            return newDuration;
-        }
-
-        private static Durations DecreaseDuration(Durations d)
-        {
-            Durations newDuration;
-            if (d == Durations.ThirtySecond)
-                newDuration = Durations.ThirtySecond;
-            else
-                newDuration = (Durations)((int)d * 2);
-            return newDuration;
-        }
-
-        private static Scales IncreaseScale(Scales s)
-        {
-            return (Scales)((int)s - 4 + 1 % 4 + 4);
         }
 
         private static void ToggleSharpNote(Note currentNote)
