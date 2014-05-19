@@ -71,6 +71,7 @@
     <Compile Include="Business\Tune.cs" />
     <Compile Include="Business\TuneElement.cs" />
     <Compile Include="Services\RttlImporterService.cs" />
+    <Compile Include="Services\SoundGeneratorService.cs" />
     <Compile Include="ViewModels\ComposerViewModel.cs" />
   </ItemGroup>
   <ItemGroup>

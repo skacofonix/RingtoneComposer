@@ -68,7 +68,8 @@ namespace RingtoneComposer.Core.ViewModels
                     },
                     () =>
                     {
-                        return ringtoneImporterService.CheckPartitionValitity(partition);
+                        return true;
+                        //return ringtoneImporterService.CheckPartitionValitity(partition);
                     });
                 }
                 return parsePartitionCommand;
