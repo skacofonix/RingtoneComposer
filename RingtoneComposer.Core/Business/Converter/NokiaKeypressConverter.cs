@@ -9,6 +9,11 @@ namespace RingtoneComposer.Core.Converter
 {
     public class NokiaKeypressConverter : TuneConverter
     {
+        public override string PartitionValidatorPattern
+        {
+            get { return @"(\()([1-7])(\))|([0-9*#])"; }
+        }
+
         public override string TuneElementPattern
         {
             get { return @"(\()([1-7])(\))|([0-9*#])"; }
@@ -39,7 +44,7 @@ namespace RingtoneComposer.Core.Converter
         private const string KeyE = "3";
         private const string KeyF = "4";
         private const string KeyG = "5";
-        private string KeyA = "6";
+        private const string KeyA = "6";
         private const string KeyB = "7";
         private const string KeyDecreaseDuration = "8";
         private const string KeyIncreaseDuration = "9";

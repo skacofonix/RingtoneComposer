@@ -9,6 +9,11 @@ namespace RingtoneComposer.Core.Converter
     {
         private const int OffsetScale = 3;
 
+        public override string PartitionValidatorPattern
+        {
+            get { return @"(1|2|4|8|16|32)?([-]|#?[A|C|D|F|G]|B|E)(\.)?([1-4]?)"; }
+        }
+
         public override string TuneElementPattern
         {
             get { return @"(1|2|4|8|16|32)?([-]|#?[A|C|D|F|G]|B|E)(\.)?([1-4]?)"; }

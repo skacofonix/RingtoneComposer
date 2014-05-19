@@ -60,6 +60,14 @@ namespace RingtoneComposer.WindowsPhone
         // Ce code ne s'exécute pas lorsque l'application est réactivée
         private void Application_Launching(object sender, LaunchingEventArgs e)
         {
+            RootFrame.Navigating += RootFrameOnNavigating;
+        }
+
+        private void RootFrameOnNavigating(object sender, NavigatingCancelEventArgs args)
+        {
+            args.Cancel = true;
+            RootFrame.Navigating -= RootFrameOnNavigating;
+            RootFrame.Dispatcher.BeginInvoke(() => { Cirrious.CrossCore.Mvx.Resolve<Cirrious.MvvmCross.ViewModels.IMvxAppStart>().Start(); });
         }
 
         // Code à exécuter lorsque l'application est activée (affichée au premier plan)
@@ -114,6 +122,10 @@ namespace RingtoneComposer.WindowsPhone
             // Créez le frame, mais ne le définissez pas encore comme RootVisual ; cela permet à l'écran de
             // démarrage de rester actif jusqu'à ce que l'application soit prête pour le rendu.
             RootFrame = new PhoneApplicationFrame();
+
+            var setup = new Setup(RootFrame);
+            setup.Initialize();
+
             RootFrame.Navigated += CompleteInitializePhoneApplication;
 
             // Gérer les erreurs de navigation

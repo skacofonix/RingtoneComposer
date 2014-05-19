@@ -34,38 +34,55 @@
   </PropertyGroup>
   <ItemGroup>
     <!-- A reference to the entire .NET Framework is automatically included -->
+    <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Converter\DurationConverter.cs" />
-    <Compile Include="Converter\IConverter.cs" />
-    <Compile Include="Converter\NokiaKeypressConverter.cs" />
-    <Compile Include="Converter\PitchConverter.cs" />
-    <Compile Include="Converter\ScaleConverter.cs" />
-    <Compile Include="Converter\TuneConverter.cs" />
-    <Compile Include="Enum\Durations.cs" />
-    <Compile Include="Frequences.cs" />
-    <Compile Include="Helpers\DurationHelper.cs" />
-    <Compile Include="Helpers\ScaleHelper.cs" />
-    <Compile Include="NokiaComposer.cs" />
-    <Compile Include="Note.cs" />
-    <Compile Include="Oscillator\IDetuneable.cs" />
-    <Compile Include="Oscillator\IOscillator.cs" />
-    <Compile Include="Oscillator\RoyalSawToothOscilator.cs" />
-    <Compile Include="Oscillator\SawToothOccilator.cs" />
-    <Compile Include="Oscillator\SawToothOscilatorDetunable.cs" />
-    <Compile Include="Oscillator\SawToothOscilatorSteadyDetunable.cs" />
-    <Compile Include="Oscillator\SineOscillator.cs" />
-    <Compile Include="Oscillator\SquareOscilator.cs" />
-    <Compile Include="Pause.cs" />
-    <Compile Include="Enum\Pitches.cs" />
+    <Compile Include="App.cs" />
+    <Compile Include="Business\Converter\DurationConverter.cs" />
+    <Compile Include="Business\Converter\IConverter.cs" />
+    <Compile Include="Business\Converter\NokiaKeypressConverter.cs" />
+    <Compile Include="Business\Converter\PitchConverter.cs" />
+    <Compile Include="Business\Converter\ScaleConverter.cs" />
+    <Compile Include="Business\Converter\TuneConverter.cs" />
+    <Compile Include="Business\Enum\Durations.cs" />
+    <Compile Include="Business\Frequences.cs" />
+    <Compile Include="Business\Helpers\DurationHelper.cs" />
+    <Compile Include="Business\Helpers\ScaleHelper.cs" />
+    <Compile Include="Business\NokiaComposer.cs" />
+    <Compile Include="Business\Note.cs" />
+    <Compile Include="Business\Oscillator\IDetuneable.cs" />
+    <Compile Include="Business\Oscillator\IOscillator.cs" />
+    <Compile Include="Business\Oscillator\RoyalSawToothOscilator.cs" />
+    <Compile Include="Business\Oscillator\SawToothOccilator.cs" />
+    <Compile Include="Business\Oscillator\SawToothOscilatorDetunable.cs" />
+    <Compile Include="Business\Oscillator\SawToothOscilatorSteadyDetunable.cs" />
+    <Compile Include="Business\Oscillator\SineOscillator.cs" />
+    <Compile Include="Business\Oscillator\SquareOscilator.cs" />
+    <Compile Include="Business\Pause.cs" />
+    <Compile Include="Business\Enum\Pitches.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Enum\Scales.cs" />
-    <Compile Include="Converter\NokiaComposerConverter.cs" />
-    <Compile Include="Converter\RttlConverter.cs" />
-    <Compile Include="SoundGenerator.cs" />
-    <Compile Include="Tune.cs" />
-    <Compile Include="TuneElement.cs" />
+    <Compile Include="Business\Enum\Scales.cs" />
+    <Compile Include="Business\Converter\NokiaComposerConverter.cs" />
+    <Compile Include="Business\Converter\RttlConverter.cs" />
+    <Compile Include="Services\IRingtoneExporterService.cs" />
+    <Compile Include="Services\IRingtoneImporterService.cs" />
+    <Compile Include="Services\ISoundGeneratorService.cs" />
+    <Compile Include="Business\SoundGenerator.cs" />
+    <Compile Include="Business\Tune.cs" />
+    <Compile Include="Business\TuneElement.cs" />
+    <Compile Include="Services\RttlImporterService.cs" />
     <Compile Include="ViewModels\ComposerViewModel.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Reference Include="Cirrious.CrossCore">
+      <HintPath>..\packages\MvvmCross.HotTuna.CrossCore.3.1.1\lib\portable-win+net45+sl50+wp8+MonoAndroid+MonoTouch\Cirrious.CrossCore.dll</HintPath>
+    </Reference>
+    <Reference Include="Cirrious.MvvmCross">
+      <HintPath>..\packages\MvvmCross.HotTuna.MvvmCrossLibraries.3.1.1\lib\portable-win+net45+sl50+wp8+MonoAndroid+MonoTouch\Cirrious.MvvmCross.dll</HintPath>
+    </Reference>
+    <Reference Include="Cirrious.MvvmCross.Localization">
+      <HintPath>..\packages\MvvmCross.HotTuna.CrossCore.3.1.1\lib\portable-win+net45+sl50+wp8+MonoAndroid+MonoTouch\Cirrious.MvvmCross.Localization.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\Portable\$(TargetFrameworkVersion)\Microsoft.Portable.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

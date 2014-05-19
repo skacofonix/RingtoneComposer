@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Text.RegularExpressions;
 
 namespace RingtoneComposer.Core.Converter
 {
@@ -10,6 +11,7 @@ namespace RingtoneComposer.Core.Converter
 
         protected const string Dot = ".";
 
+        public abstract string PartitionValidatorPattern { get; }
         public abstract string TuneElementPattern { get; }
         public abstract string TuneElementDelimiter { get; }
         public abstract string Pause { get; }
@@ -20,6 +22,12 @@ namespace RingtoneComposer.Core.Converter
             DurationConverter = new DurationConverter();
             ScaleConverter = new ScaleConverter();
             PitchConverter = new PitchConverter();
+        }
+
+        public bool CheckPartition(string s)
+        {
+            var regex = new Regex(PartitionValidatorPattern);
+            return regex.IsMatch(s);
         }
 
         public string ToString(Tune t)

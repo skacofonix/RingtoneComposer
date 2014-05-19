@@ -16,6 +16,11 @@ namespace RingtoneComposer.Core.Converter
         private const string DefaultDuration = "4";
         private const string DefaultScale = "6";
 
+        public override string PartitionValidatorPattern
+        {
+            get { return @"([1|2|4|8|16|32]?)(P|#?[A|C|D|F|G]#?|B|E)(\.?)([4-7]?)"; }
+        }
+
         public override string TuneElementPattern
         {
             get { return @"([1|2|4|8|16|32]?)(P|#?[A|C|D|F|G]#?|B|E)(\.?)([4-7]?)"; }
