@@ -25,6 +25,7 @@
         <StackPanel Grid.Row="0" Margin="12,17,0,28">
             <TextBlock Text="RingtoneComposer" Style="{StaticResource PhoneTextNormalStyle}"/>
             <TextBlock Text="Composer" Margin="9,-7,0,0" Style="{StaticResource PhoneTextTitle1Style}"/>
+            <Button Content="Button" Click="Button_Click"/>
         </StackPanel>
 
         <!--ContentPanel - placez tout contenu supplémentaire ici-->
@@ -33,8 +34,8 @@
                 <RowDefinition Height="520*"/>
                 <RowDefinition Height="87*"/>
             </Grid.RowDefinitions>
-            <TextBox x:Name="textBoxPartition" HorizontalAlignment="Left" Height="500" Margin="10,10,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="436" Text="{Binding Partition, Mode=TwoWay}"/>
-            <Button Content="Play" HorizontalAlignment="Left" Grid.Row="1" VerticalAlignment="Top" Width="226" Command="{Binding GenerateWaveCommand}"/>
+            <TextBox x:Name="textBoxPartition" HorizontalAlignment="Left" Height="500" Margin="10,10,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="436" Text="{Binding Partition, Mode=TwoWay}"></TextBox>
+            <Button Content="Play" HorizontalAlignment="Left" Grid.Row="1" VerticalAlignment="Top" Width="226" Command="{Binding PlayRingtoneCommand, Mode=TwoWay}"/>
             <Button Content="Save ringtone" HorizontalAlignment="Left" Margin="226,0,0,0" Grid.Row="1" VerticalAlignment="Top" Width="211"/>
         </Grid>
     </Grid>

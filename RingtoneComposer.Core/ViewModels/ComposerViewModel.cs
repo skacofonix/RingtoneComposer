@@ -1,4 +1,5 @@
 ﻿using Cirrious.MvvmCross.ViewModels;
+using RingtoneComposer.Core.Interfaces;
 using RingtoneComposer.Core.Services;
 using System.ComponentModel;
 using System.IO;
@@ -8,14 +9,16 @@ namespace RingtoneComposer.Core.ViewModels
 {
     public class ComposerViewModel : MvxViewModel
     {
-        private string partition = "TocattaFugue:d=32,o=5,b=100:a#.,g#.,2a#,g#,f#,f,d#.,4d.,2d#,a#.,g#.,2a#,8f,8f#,8d,2d#,8d,8f,8g#,8b,8d6,4f6,4g#.,4f.,1g,32p,";
+        private string partition;
         public string Partition
         {
             get { return partition; }
             set
             {
                 partition = value;
+                tune = ringtoneImporterService.Import(partition);
                 RaisePropertyChanged(() => Partition);
+                RaisePropertyChanged(() => Tune);
             }
         }
 
@@ -46,11 +49,15 @@ namespace RingtoneComposer.Core.ViewModels
 
         private IRingtoneImporterService ringtoneImporterService;
         private ISoundGeneratorService soundGeneratorService;
+        private ISoundPlayer soundPlayer;
 
-        public ComposerViewModel(IRingtoneImporterService ringtoneImporterService, ISoundGeneratorService soundGeneratorService)
+        public ComposerViewModel(IRingtoneImporterService ringtoneImporterService,
+                                 ISoundGeneratorService soundGeneratorService,
+                                 ISoundPlayer soundPlayer)
         {
             this.ringtoneImporterService = ringtoneImporterService;
             this.soundGeneratorService = soundGeneratorService;
+            this.soundPlayer = soundPlayer;
         }
 
         #region ParsePartitionCommand
@@ -78,25 +85,26 @@ namespace RingtoneComposer.Core.ViewModels
 
         #endregion
 
-        #region GenerateWaveCommand
+        #region PlayRingtoneCommand
 
-        private MvxCommand generateWaveCommand;
-        public ICommand GenerateWaveCommand
+        private MvxCommand playRingtoneCommand;
+        public ICommand PlayRingtoneCommand
         {
             get
             {
-                if (generateWaveCommand == null)
+                if (playRingtoneCommand == null)
                 {
-                    generateWaveCommand = new MvxCommand(() =>
+                    playRingtoneCommand = new MvxCommand(() =>
                     {
-                        ringtoneWaveStream = soundGeneratorService.TuneToWaveStream(tune);
+                        soundPlayer.Play(tune);
                     },
                     () =>
                     {
-                        return tune != null;
+                        //return true;
+                        return Tune != null;
                     });
                 }
-                return generateWaveCommand;
+                return playRingtoneCommand;
             }
         }
 
