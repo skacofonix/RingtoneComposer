@@ -18,12 +18,12 @@ namespace RingtoneComposer.Core.Converter
 
         public override string PartitionValidatorPattern
         {
-            get { return @"([1|2|4|8|16|32]?)(P|#?[A|C|D|F|G]#?|B|E)(\.?)([4-7]?)"; }
+            get { return @"(1|2|4|8|16|32)?(P|#?[A|C|D|F|G]#?|B|E)(\.?)([4-7]?)"; }
         }
 
         public override string TuneElementPattern
         {
-            get { return @"([1|2|4|8|16|32]?)(P|#?[A|C|D|F|G]#?|B|E)(\.?)([4-7]?)"; }
+            get { return @"(1|2|4|8|16|32)?(P|#?[A|C|D|F|G]#?|B|E)(\.?)([4-7]?)"; }
         }
         
         public override string TuneElementDelimiter

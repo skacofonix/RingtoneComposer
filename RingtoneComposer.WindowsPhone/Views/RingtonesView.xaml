@@ -33,7 +33,6 @@
                 <ListBox.ItemTemplate>
                     <DataTemplate>
                         <StackPanel Orientation="Vertical">
-                            <TextBlock Text="Ringtone"/>
                             <TextBlock Text="{Binding Name}"/>
                             <TextBlock Text="{Binding Tempo}"/>
                         </StackPanel>
