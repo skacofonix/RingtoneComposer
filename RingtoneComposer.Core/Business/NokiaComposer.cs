@@ -60,6 +60,7 @@ namespace RingtoneComposer.Core
 
             }
 
+            return true;
         }
 
         public void PutChar(NokiaTouch t)

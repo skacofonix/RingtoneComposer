@@ -9,6 +9,6 @@ namespace RingtoneComposer.Core.Services
 {
     public interface IRingtoneStoreService
     {
-        IEnumerable<Tune> Tunes;
+        IEnumerable<Tune> GetTunes();
     }
 }

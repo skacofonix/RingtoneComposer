@@ -33,7 +33,7 @@ namespace RingtoneComposer.Core.ViewModels
             IRingtoneStoreService ringtoneStore,
             ISoundPlayer soundPlayer)
         {
-            this.Tunes = ringtoneStore.Tunes.ToList();
+            this.Tunes = ringtoneStore.GetTunes().ToList();
             this.soundPlayer = soundPlayer;
         }
 
