@@ -1,7 +1,6 @@
 ﻿using Cirrious.MvvmCross.ViewModels;
 using RingtoneComposer.Core.Interfaces;
 using RingtoneComposer.Core.Services;
-using System.ComponentModel;
 using System.IO;
 using System.Windows.Input;
 
@@ -16,10 +15,21 @@ namespace RingtoneComposer.Core.ViewModels
             set
             {
                 partition = value;
-                tune = ringtoneImporterService.Import(partition);
+                Tune = ringtoneImporterService.Import(partition);
                 RaisePropertyChanged(() => Partition);
-                RaisePropertyChanged(() => Tune);
             }
+        }
+
+        private TuneElement currentTuneElement;
+        public TuneElement CurrentTuneElement
+        {
+            get { return currentTuneElement; }
+            private set
+            { 
+                currentTuneElement = value;
+                RaisePropertyChanged(() => CurrentTuneElement);
+            }
+
         }
 
         private Tune tune;
@@ -31,13 +41,6 @@ namespace RingtoneComposer.Core.ViewModels
                 tune = value;
                 RaisePropertyChanged(() => Tune);
             }
-        }
-
-        private Stream ringtoneWaveStream;
-        public Stream RingtoneWaveStream
-        {
-            get { return ringtoneWaveStream; }
-            private set { ringtoneWaveStream = value; }
         }
 
         private Stream ringtoneMp3Stream;
@@ -96,12 +99,12 @@ namespace RingtoneComposer.Core.ViewModels
                 {
                     playRingtoneCommand = new MvxCommand(() =>
                     {
-                        soundPlayer.Play(tune);
+                        soundPlayer.Play(Tune);
                     },
                     () =>
                     {
-                        //return true;
-                        return Tune != null;
+                        return true;
+                        //return Tune != null;
                     });
                 }
                 return playRingtoneCommand;
@@ -133,5 +136,26 @@ namespace RingtoneComposer.Core.ViewModels
         }
 
         #endregion
+
+
+        private MvxCommand keyOnePressedCommand;
+        public ICommand KeyOnePressedCommand
+        {
+            get
+            {
+                if(keyOnePressedCommand == null)
+                {
+                    keyOnePressedCommand = new MvxCommand(() =>
+                    {
+                        // TODO
+                    },
+                    () =>
+                    {
+                        return true;
+                    });
+                }
+                return keyOnePressedCommand;
+            }
+        }
     }
 }

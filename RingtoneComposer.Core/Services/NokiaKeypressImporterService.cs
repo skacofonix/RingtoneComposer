@@ -7,14 +7,15 @@ using System.Threading.Tasks;
 
 namespace RingtoneComposer.Core.Services
 {
-    public class RttlImporterService : IRingtoneImporterService
+    public class NokiaKeypressImporterService : IRingtoneImporterService
     {
-        private RttlConverter converter = new RttlConverter();
+        private NokiaKeypressConverter converter = new NokiaKeypressConverter();
 
         public bool CheckPartitionValitity(string s)
         {
             return converter.CheckPartition(s);
         }
+
         public Tune Import(string s)
         {
             return converter.Parse(s);

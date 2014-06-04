@@ -7,14 +7,20 @@ using System.Threading.Tasks;
 
 namespace RingtoneComposer.Core.Services
 {
-    public class RttlImporterService : IRingtoneImporterService
+    public class RingtoneImporterService : IRingtoneImporterService
     {
-        private RttlConverter converter = new RttlConverter();
+        private TuneConverter converter;
+
+        public RingtoneImporterService(TuneConverter converter)
+        {
+            this.converter = converter;
+        }
 
         public bool CheckPartitionValitity(string s)
         {
             return converter.CheckPartition(s);
         }
+
         public Tune Import(string s)
         {
             return converter.Parse(s);

@@ -34,9 +34,10 @@ namespace RingtoneComposer.Core
             // Find start & end of tune element
             var startIndex = Math.Max(partition.Substring(0, positionPartition).LastIndexOf(Space), 0);
             var endIndex = Math.Max(partition.IndexOf(Space, positionPartition), partition.Length - 1);
+            var length = endIndex - startIndex;
 
             // TODO : Identify tune element
-            partition.Substring(0, positionPartition);
+            partition.Substring(startIndex, length);
 
             return new Tuple<int, int>(startIndex, endIndex);
         }
@@ -44,6 +45,21 @@ namespace RingtoneComposer.Core
         public void PutChar(char c)
         {
             
+        }
+
+        public bool CanPutChar(NokiaTouch t)
+        {
+            if (currentElement != null)
+            {
+                var note = currentElement as Note;
+                
+                //switch(t)
+                //{
+                //    // TODO
+                //}
+
+            }
+
         }
 
         public void PutChar(NokiaTouch t)

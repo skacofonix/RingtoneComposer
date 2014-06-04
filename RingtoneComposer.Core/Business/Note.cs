@@ -46,6 +46,11 @@ namespace RingtoneComposer.Core
             Scale = scale;  
         }
 
+        public bool CanIncreasePitch()
+        {
+            return !(Scale == Scales.Seven && Pitch == Pitches.B);
+        }
+
         public bool IncreasePitch()
         {
             bool isSuccess = false;
@@ -68,6 +73,11 @@ namespace RingtoneComposer.Core
         private Pitches IncreasePitch(Pitches p)
         {
             return (Pitches)((int)p + 1 % 12);
+        }
+
+        public bool CanDecreasePitch()
+        {
+            return !(Scale == Scales.Four && Pitch == Pitches.C);
         }
 
         public bool DecreasePitch()
@@ -94,6 +104,11 @@ namespace RingtoneComposer.Core
             return (Pitches)((int)p - 1 % 12);
         }
 
+        public bool CanIncreaseScale()
+        {
+            return Scale != Scales.Seven;
+        }
+
         public bool IncreaseScale()
         {
             var newScale = ScaleHelper.Increase(Scale);
@@ -104,6 +119,11 @@ namespace RingtoneComposer.Core
                 Scale = newScale;
 
             return isSuccess;
+        }
+
+        public bool CanDecreaseScale()
+        {
+            return Scale != Scales.Four;
         }
 
         public bool DecreaseScale()
