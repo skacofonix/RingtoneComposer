@@ -76,13 +76,14 @@
     <Compile Include="Services\NokiaKeypressImporterService.cs" />
     <Compile Include="Services\RingtoneExporterService.cs" />
     <Compile Include="Services\RingtoneImporterService.cs" />
+    <Compile Include="Services\RingtoneStoreService.cs" />
     <Compile Include="Services\RttlExporterService.cs" />
     <Compile Include="Services\RttlImporterService.cs" />
     <Compile Include="Services\SoundGeneratorService.cs" />
     <Compile Include="ViewModels\ComposerViewModel.cs" />
     <Compile Include="ViewModels\ExporterViewModel.cs" />
     <Compile Include="ViewModels\ImporterViewModel.cs" />
-    <Compile Include="ViewModels\ListRingtoneViewModel.cs" />
+    <Compile Include="ViewModels\RingtonesViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="Cirrious.CrossCore">

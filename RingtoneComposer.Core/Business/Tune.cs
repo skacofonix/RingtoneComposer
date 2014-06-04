@@ -26,5 +26,10 @@ namespace RingtoneComposer.Core
             this.TuneElementList = tuneElementList;
             this.Tempo = tempo;
         }
+
+        public override string ToString()
+        {
+            return string.Format("Name:{0}, Tempo:{1}", Name, Tempo.HasValue ? Tempo.Value.ToString() : "Null");
+        }
     }
 }

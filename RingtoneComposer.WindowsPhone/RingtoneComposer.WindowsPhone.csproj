@@ -109,6 +109,9 @@
     <Compile Include="Views\Controls\PhoneKeyboardControl.xaml.cs">
       <DependentUpon>PhoneKeyboardControl.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\RingtonesView.xaml.cs">
+      <DependentUpon>RingtonesView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\TestView.xaml.cs">
       <DependentUpon>TestView.xaml</DependentUpon>
     </Compile>
@@ -123,6 +126,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\Controls\PhoneKeyboardControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\RingtonesView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

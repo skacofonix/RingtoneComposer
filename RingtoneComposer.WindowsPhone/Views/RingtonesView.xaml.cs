@@ -12,9 +12,9 @@ using RingtoneComposer.Core.ViewModels;
 
 namespace RingtoneComposer.WindowsPhone.Views
 {
-    public partial class ComposerView : MvxPhonePage
+    public partial class RingtonesView : MvxPhonePage
     {
-        public ComposerView()
+        public RingtonesView()
         {
             InitializeComponent();
         }
