@@ -29,16 +29,18 @@
 
         <!--ContentPanel - placez tout contenu supplémentaire ici-->
         <Grid x:Name="ContentPanel" Grid.Row="1" Margin="12,0,12,0">
-            <ListBox ItemsSource="{Binding Tunes}">
+            <ListBox ItemsSource="{Binding Tunes}" >
                 <ListBox.ItemTemplate>
                     <DataTemplate>
-                        <StackPanel Orientation="Vertical">
-                            <TextBlock Text="{Binding Name}"/>
-                            <TextBlock Text="{Binding Tempo}"/>
-                        </StackPanel>
+                        <Grid>
+                            <Button Content="Play" /> 
+                            <TextBlock Text="{Binding Name}" Margin="0,0,0, 50"/>
+                            <Button Content="Edit" HorizontalAlignment="Right" />
+                        </Grid>
                     </DataTemplate>
                 </ListBox.ItemTemplate>
             </ListBox>
+            <Button Content="New ringtone" VerticalAlignment="Bottom" Command="{Binding EditRingtoneCommand}"/>
         </Grid>
     </Grid>
 

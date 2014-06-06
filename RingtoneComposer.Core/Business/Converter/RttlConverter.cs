@@ -18,24 +18,33 @@ namespace RingtoneComposer.Core.Converter
 
         public override string PartitionValidatorPattern
         {
-            get { return @"(1|2|4|8|16|32)?(P|#?[A|C|D|F|G]#?|B|E)(\.?)([4-7]?)"; }
+            get
+            {
+                //var name = @"(?!:)\w{0,10}";
+                //var controlSection = @"(b=([0-9]{1,3}),?){0,1}|(d=(1|2|4|8|16|32),?){0,1}|(o=([4-7]),?){0,1}";
+                //var toneComands = @"(1|2|4|8|16|32)?(P|#?[ACDFG]#?|B|E)(\.?)([4-7]?)";
+
+                var rttlPattern = @"(?!:)\w{0,10}:(((b=([0-9]{1,3}),?){0,1}|(d=(1|2|4|8|16|32),?){0,1}|(o=([4-7]),?){0,1}):)?(((1|2|4|8|16|32)?(P|#?[acdfg]#?|b|e)(\.?)([4-7]?))[\s,]?){1,50}";
+
+                return rttlPattern;
+            }
         }
 
         public override string TuneElementPattern
         {
-            get { return @"(1|2|4|8|16|32)?(P|#?[A|C|D|F|G]#?|B|E)(\.?)([4-7]?)"; }
+            get { return @"(1|2|4|8|16|32)?(P|#?[ACDFG]#?|B|E)(\.?)([4-7]?)"; }
         }
-        
+
         public override string TuneElementDelimiter
         {
             get { return ","; }
         }
-        
+
         public override string Pause
         {
             get { return "P"; }
         }
-        
+
         public override int DefaultBpm
         {
             get { return 63; }
