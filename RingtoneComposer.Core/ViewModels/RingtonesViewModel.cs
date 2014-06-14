@@ -62,18 +62,20 @@ namespace RingtoneComposer.Core.ViewModels
 
         #region PlayRingtoneCommand
 
-        private MvxCommand playRingtoneCommand;
+        private MvxCommand<Tune> playRingtoneCommand;
         public ICommand PlayRingtoneCommand
         {
             get
             {
                 if (playRingtoneCommand == null)
                 {
-                    playRingtoneCommand = new MvxCommand(() =>
+                    playRingtoneCommand = new MvxCommand<Tune>((t) =>
                     {
+                        var blop = t;
+
                         soundPlayer.Play(selectedTune);
                     },
-                    () =>
+                    (t) =>
                     {
                         return true;
                     });
