@@ -22,6 +22,8 @@ namespace RingtoneComposer.WindowsPhone
 
 		public void Play(Tune tune)
 		{
+            Stop();
+
             using (var s = soundGenerator.TuneToWaveStream(tune))
             {
                 var effect = SoundEffect.FromStream(s);

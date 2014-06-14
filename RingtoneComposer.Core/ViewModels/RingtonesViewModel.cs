@@ -22,7 +22,8 @@ namespace RingtoneComposer.Core.ViewModels
             }
         }
 
-        private Tune selectedTune;
+        public bool IsSoundPlaying { get; set; }
+
         private IRingtoneStoreService ringtoneStore;
         private ISoundPlayer soundPlayer;
 
@@ -60,6 +61,8 @@ namespace RingtoneComposer.Core.ViewModels
             this.Tunes = tunes;
         }
 
+
+
         #region PlayRingtoneCommand
 
         private MvxCommand<Tune> playRingtoneCommand;
@@ -69,11 +72,10 @@ namespace RingtoneComposer.Core.ViewModels
             {
                 if (playRingtoneCommand == null)
                 {
-                    playRingtoneCommand = new MvxCommand<Tune>((t) =>
+                    playRingtoneCommand = new MvxCommand<Tune>(
+                    (t) =>
                     {
-                        var blop = t;
-
-                        soundPlayer.Play(selectedTune);
+                        soundPlayer.Play(t);
                     },
                     (t) =>
                     {
@@ -97,6 +99,7 @@ namespace RingtoneComposer.Core.ViewModels
                 {
                     editRingtoneCommand = new MvxCommand(() =>
                     {
+                        soundPlayer.Stop();
                         ShowViewModel<ComposerViewModel>();
                     },
                     () =>
@@ -121,6 +124,7 @@ namespace RingtoneComposer.Core.ViewModels
                 {
                     exportRingtoneCommand = new MvxCommand(() =>
                     {
+                        soundPlayer.Stop();
                         ShowViewModel<ExporterViewModel>();
                     },
                     () =>
@@ -145,6 +149,7 @@ namespace RingtoneComposer.Core.ViewModels
                 {
                     importRingtoneCommand = new MvxCommand(() =>
                     {
+                        soundPlayer.Stop();
                         ShowViewModel<ImporterViewModel>();
 
                     },
