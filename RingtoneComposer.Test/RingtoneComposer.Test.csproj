@@ -62,6 +62,8 @@
     <Compile Include="SoundGeneratorTest.cs" />
     <Compile Include="FrequencesTest.cs" />
     <Compile Include="NoteTest.cs" />
+    <Compile Include="NokiaComposer\NokiaComposerTuneElementListTest.cs" />
+    <Compile Include="NokiaComposer\NokiaComposerTuneElementWithLengthTest.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\RingtoneComposer.Core\RingtoneComposer.Core.csproj">

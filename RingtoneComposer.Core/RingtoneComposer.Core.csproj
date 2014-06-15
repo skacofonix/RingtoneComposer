@@ -48,8 +48,9 @@
     <Compile Include="Business\Frequences.cs" />
     <Compile Include="Business\Helpers\DurationHelper.cs" />
     <Compile Include="Business\Helpers\ScaleHelper.cs" />
-    <Compile Include="Business\NokiaComposer.cs" />
-    <Compile Include="Business\NokiaComposerTuneElementList.cs" />
+    <Compile Include="Business\NokiaComposer\NokiaComposer.cs" />
+    <Compile Include="Business\NokiaComposer\NokiaComposerTuneElementList.cs" />
+    <Compile Include="Business\NokiaComposer\NokiaComposerTuneElementWithLength.cs" />
     <Compile Include="Business\Note.cs" />
     <Compile Include="Business\Oscillator\IDetuneable.cs" />
     <Compile Include="Business\Oscillator\IOscillator.cs" />
@@ -97,6 +98,7 @@
       <HintPath>..\packages\MvvmCross.HotTuna.CrossCore.3.1.1\lib\portable-win+net45+sl50+wp8+MonoAndroid+MonoTouch\Cirrious.MvvmCross.Localization.dll</HintPath>
     </Reference>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\Portable\$(TargetFrameworkVersion)\Microsoft.Portable.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

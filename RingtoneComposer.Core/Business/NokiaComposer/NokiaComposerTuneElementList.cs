@@ -6,11 +6,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace RingtoneComposer.Core.Business
+namespace RingtoneComposer.Core
 {
-    public class NokiaComposerTuneElementList : IList<TuneElementWithLength>
+    public class NokiaComposerTuneElementList : IList<NokiaComposerTuneElementWithLength>
     {
-        private List<TuneElementWithLength> list = new List<TuneElementWithLength>();
+        private List<NokiaComposerTuneElementWithLength> list = new List<NokiaComposerTuneElementWithLength>();
 
         public int Length
         {
@@ -102,17 +102,17 @@ namespace RingtoneComposer.Core.Business
             } while (indexFounded < list.Count || !startPositionFounded.HasValue);
         }
 
-        public int IndexOf(TuneElementWithLength item)
+        public int IndexOf(NokiaComposerTuneElementWithLength item)
         {
             return list.IndexOf(item);
         }
 
         public void Insert(int index, TuneElement item)
         {
-            list.Insert(index, new TuneElementWithLength(item));
+            list.Insert(index, new NokiaComposerTuneElementWithLength(item));
         }
 
-        public void Insert(int index, TuneElementWithLength item)
+        public void Insert(int index, NokiaComposerTuneElementWithLength item)
         {
             list.Insert(index, item);
         }
@@ -122,7 +122,7 @@ namespace RingtoneComposer.Core.Business
             list.RemoveAt(index);
         }
 
-        public TuneElementWithLength this[int index]
+        public NokiaComposerTuneElementWithLength this[int index]
         {
             get
             {
@@ -134,7 +134,7 @@ namespace RingtoneComposer.Core.Business
             }
         }
 
-        public void Add(TuneElementWithLength item)
+        public void Add(NokiaComposerTuneElementWithLength item)
         {
             list.Add(item);
         }
@@ -144,12 +144,12 @@ namespace RingtoneComposer.Core.Business
             list.Clear();
         }
 
-        public bool Contains(TuneElementWithLength item)
+        public bool Contains(NokiaComposerTuneElementWithLength item)
         {
             return list.Contains(item);
         }
 
-        public void CopyTo(TuneElementWithLength[] array, int arrayIndex)
+        public void CopyTo(NokiaComposerTuneElementWithLength[] array, int arrayIndex)
         {
             list.CopyTo(array, arrayIndex);
         }
@@ -164,12 +164,12 @@ namespace RingtoneComposer.Core.Business
             get { return false; }
         }
 
-        public bool Remove(TuneElementWithLength item)
+        public bool Remove(NokiaComposerTuneElementWithLength item)
         {
             return list.Remove(item);
         }
 
-        public IEnumerator<TuneElementWithLength> GetEnumerator()
+        public IEnumerator<NokiaComposerTuneElementWithLength> GetEnumerator()
         {
             return list.GetEnumerator();
         }
@@ -177,55 +177,6 @@ namespace RingtoneComposer.Core.Business
         IEnumerator IEnumerable.GetEnumerator()
         {
             return list.GetEnumerator();
-        }
-    }
-
-    public class TuneElementWithLength
-    {
-        public TuneElement TuneElement
-        {
-            get { return tuneElement; }
-            set
-            {
-                tuneElement = value;
-                Length = ComputeElementStringLength(tuneElement);
-            }
-        }
-        private TuneElement tuneElement;
-
-        public int Length
-        {
-            get;
-            private set;
-        }
-
-        public TuneElementWithLength(TuneElement tuneElement)
-        {
-            TuneElement = tuneElement;
-        }
-
-        private int ComputeElementStringLength(TuneElement tuneElement)
-        {
-            int length = 1;
-
-            if (tuneElement.Dotted)
-                length += 1;
-
-            if (tuneElement.Duration == (Durations.Sixteenth ^ Durations.ThirtySecond))
-                length += 2;
-            else
-                length += 1;
-
-            var note = tuneElement as Note;
-            if (note != null)
-            {
-                length += 1;
-
-                if (note.IsSharp)
-                    length += 1;
-            }
-
-            return length;
         }
     }
 }
