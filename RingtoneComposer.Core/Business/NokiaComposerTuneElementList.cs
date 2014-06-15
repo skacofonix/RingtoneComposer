@@ -22,8 +22,8 @@ namespace RingtoneComposer.Core.Business
                 return elementsLength + nbSeparator;
             }
         }
-
-        public int GetIndexElementAtStringLength(int position)
+        
+        public int GetIndexElementAtStringPosition(int position)
         {
             var totalLength = Length;
             if (position < 0 || position > totalLength)
@@ -56,6 +56,16 @@ namespace RingtoneComposer.Core.Business
             if (startIndexFounded.HasValue)
                 return startIndexFounded.Value;
             return -1;
+        }
+
+        public int GetStartPositionAtStringPosition(int position)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Tuple<int, int> GetRangePositionAtStringPosition(int position)
+        {
+            throw new NotImplementedException();
         }
 
         public int IndexOf(TuneElementWithLength item)

@@ -91,7 +91,7 @@ namespace RingtoneComposer.Core
 
         private void PutCharInternal(char c, int position)
         {
-            var index = nokiaComposerTuneElementList.GetIndexElementAtStringLength(position);
+            var index = nokiaComposerTuneElementList.GetIndexElementAtStringPosition(position);
             if (index < 0)
                 index = 0;
 
