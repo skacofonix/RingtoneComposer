@@ -12,9 +12,7 @@ namespace RingtoneComposer.Core
         {
             get
             {
-                if (Pitch == Pitches.B || Pitch == Pitches.E)
-                    return false;
-                return true;
+                return (Pitch != Pitches.B && Pitch != Pitches.E);
             }
         }
 
@@ -35,9 +33,6 @@ namespace RingtoneComposer.Core
                 }
             }
         }
-
-        public Note()
-        { }
 
         public Note(Pitches pitch, Scales scale, Durations duration)
             :base(duration)

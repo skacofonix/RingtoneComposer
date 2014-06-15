@@ -1,5 +1,6 @@
 ﻿using RingtoneComposer.Core.Converter;
 using System;
+using System.Text.RegularExpressions;
 
 namespace RingtoneComposer.Core
 {
@@ -20,15 +21,18 @@ namespace RingtoneComposer.Core
             nokiaComposerConverter = new NokiaComposerConverter();
         }
 
-
-        public Tuple<int, int> SelectTuneElement(int position)
+        public Tuple<int, int> SelectTuneElement(int index)
         {
-            //if (position > (partition.Length - 1))
-            //    return;
+            ValidateIndex(index);
 
+            return GetTuneElementPositionRange(index);
+        }
+
+        private Tuple<int, int> GetTuneElementPositionRange(int index)
+        {
             // Move to last char of tune element
-            var positionPartition = position;
-            while (positionPartition == Space && position > 0)
+            var positionPartition = index;
+            while (positionPartition == Space && index > 0)
                 positionPartition--;
 
             // Find start & end of tune element
@@ -42,112 +46,59 @@ namespace RingtoneComposer.Core
             return new Tuple<int, int>(startIndex, endIndex);
         }
 
+        /// <summary>
+        /// Put char at the end of partition
+        /// </summary>
+        /// <param name="c"></param>
         public void PutChar(char c)
         {
-            
+            ValidateChar(c);
+
+            var index = Math.Min(0, partition.Length - 1);
+
+            PutCharInternal(c, index);
         }
 
-        public bool CanPutChar(NokiaTouch t)
+        /// <summary>
+        /// Put char at index position
+        /// </summary>
+        /// <param name="c"></param>
+        /// <param name="index"></param>
+        public void PutChar(char c, int index)
         {
-            if (currentElement != null)
-            {
-                var note = currentElement as Note;
-                
-                //switch(t)
-                //{
-                //    // TODO
-                //}
+            ValidateChar(c);
+            ValidateIndex(index);
 
+            PutCharInternal(c, index);
+        }
+
+        private void ValidateChar(char c)
+        {
+            var keyRegex = new Regex("[0-9*#]");
+            if (!keyRegex.IsMatch(c.ToString()))
+                throw new ArgumentOutOfRangeException("c parameter expected in range 0 to 9 or * or #");
+        }
+
+        private void ValidateIndex(int index)
+        {
+            if (index > Math.Min(0, partition.Length - 1))
+                throw new ArgumentOutOfRangeException("index");
+        }
+
+        private void PutCharInternal(char c, int index)
+        {
+            if (c >= '0' && c <= '7')
+            {
+                // New tune element
+            }
+            else
+            {
+                // Modify current tune element
+                // it is necessarly to identify this
+                var blop = SelectTuneElement(index);
             }
 
-            return true;
         }
 
-        public void PutChar(NokiaTouch t)
-        {
-            switch (t)
-            {
-                case NokiaTouch.One:
-                case NokiaTouch.Two:
-                case NokiaTouch.Three:
-                case NokiaTouch.Four:
-                case NokiaTouch.Five:
-                case NokiaTouch.Six:
-                case NokiaTouch.Seven:
-                    currentElement = new Note();
-                    break;
-                case NokiaTouch.Zero:
-                    break;
-                case NokiaTouch.Up:
-                case NokiaTouch.Down:
-                    break;
-                case NokiaTouch.Star:
-                case NokiaTouch.Sharp:
-                    break;
-                case NokiaTouch.Eight:
-                case NokiaTouch.Nine:
-                    break;
-                default :
-                    throw new InvalidOperationException();
-            }
-        }
     }
-
-    public enum NokiaTouch
-    {
-        One,
-        Two,
-        Three,
-        Four,
-        Five,
-        Six,
-        Seven,
-        Eight,
-        Nine,
-        Zero,
-        Star,
-        Sharp,
-        Up,
-        Down
-    }
-
-    public abstract class NokiaComposerElement
-    {
-        public void Add(NokiaTouch t)
-        {
-            if(IsValid(t))
-                AddInternal(t);
-        }
-
-        protected abstract bool IsValid(NokiaTouch t);
-
-        protected abstract void AddInternal(NokiaTouch t);
-    }
-
-    public class NewNote : NokiaComposerElement
-    {
-        protected override bool IsValid(NokiaTouch t)
-        {
-            switch (t)
-            {
-                case NokiaTouch.One:
-                case NokiaTouch.Two:
-                case NokiaTouch.Three:
-                case NokiaTouch.Four:
-                case NokiaTouch.Five:
-                case NokiaTouch.Six:
-                case NokiaTouch.Seven:
-                    return true;
-                default :
-                    return false;
-            }
-        }
-
-        protected override void AddInternal(NokiaTouch t)
-        {
-            throw new NotImplementedException();
-        }
-    }
-
-
 }
