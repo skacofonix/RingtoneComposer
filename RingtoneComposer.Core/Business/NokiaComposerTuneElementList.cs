@@ -10,7 +10,7 @@ namespace RingtoneComposer.Core.Business
 {
     public class NokiaComposerTuneElementList : IList<TuneElementWithLength>
     {
-        private List<TuneElementWithLength> list;
+        private List<TuneElementWithLength> list = new List<TuneElementWithLength>();
 
         public int Length
         {
@@ -25,47 +25,81 @@ namespace RingtoneComposer.Core.Business
         
         public int GetIndexElementAtStringPosition(int position)
         {
-            var totalLength = Length;
-            if (position < 0 || position > totalLength)
-                throw new ArgumentOutOfRangeException(string.Concat("index expected in range 0 to ", totalLength));
+            ValidatePosition(position);
 
-            int? startIndexFounded = null;
+            int? startPosition;
+            int? index;
+            FindTuneElementAtStringPosition(position, out startPosition, out index);
 
-            int previousStartIndex = 0;
-            int currentStartIndex = 0;
-            int index = 0;
-            do
-            {
-                if (currentStartIndex < position)
-                {
-                    startIndexFounded = previousStartIndex;
-                }
-                else
-                {
-                    previousStartIndex = currentStartIndex;
-
-                    currentStartIndex += list[index].Length;
-                    if (index == Math.Max(0, list.Count - 1))
-                        currentStartIndex += 1;
-                }
-
-                index++;
-
-            } while (index < list.Count || !startIndexFounded.HasValue);
-
-            if (startIndexFounded.HasValue)
-                return startIndexFounded.Value;
+            if (index.HasValue)
+                return index.Value;
             return -1;
         }
 
         public int GetStartPositionAtStringPosition(int position)
         {
-            throw new NotImplementedException();
+            ValidatePosition(position);
+
+            int? startPosition;
+            int? index;
+            FindTuneElementAtStringPosition(position, out startPosition, out index);
+
+            if (startPosition.HasValue)
+                return startPosition.Value;
+            return -1;
         }
 
         public Tuple<int, int> GetRangePositionAtStringPosition(int position)
         {
-            throw new NotImplementedException();
+            ValidatePosition(position);
+
+            int? startPosition;
+            int? index;
+            FindTuneElementAtStringPosition(position, out startPosition, out index);
+
+            if (!startPosition.HasValue || !index.HasValue)
+                return null;
+
+            var tuneElement = list[index.Value];
+            var endPosition = startPosition + tuneElement.Length;
+
+            var result = new Tuple<int, int>(startPosition.Value, endPosition.Value);
+
+            return result;
+        }
+
+        private void ValidatePosition(int position)
+        {
+            var totalLength = Length;
+            if (position < 0 || position > totalLength)
+                throw new ArgumentOutOfRangeException(string.Concat("index expected in range 0 to ", totalLength));
+        }
+
+        private void FindTuneElementAtStringPosition(int position, out int? startPositionFounded, out int? indexFounded)
+        {
+            startPositionFounded = null;
+            indexFounded = 0;
+
+            int previousStartIndex = 0;
+            int currentStartIndex = 0;
+            do
+            {
+                if (currentStartIndex > position)
+                {
+                    startPositionFounded = previousStartIndex;
+                }
+                else
+                {
+                    previousStartIndex = currentStartIndex;
+
+                    currentStartIndex += list[indexFounded.Value].Length;
+                    if (indexFounded == Math.Max(0, list.Count - 1))
+                        currentStartIndex += 1;
+                }
+
+                indexFounded++;
+
+            } while (indexFounded < list.Count || !startPositionFounded.HasValue);
         }
 
         public int IndexOf(TuneElementWithLength item)

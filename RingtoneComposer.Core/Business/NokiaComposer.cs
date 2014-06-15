@@ -1,27 +1,45 @@
 ﻿using RingtoneComposer.Core.Business;
 using RingtoneComposer.Core.Converter;
 using System;
+using System.Linq;
 using System.Text.RegularExpressions;
 
 namespace RingtoneComposer.Core
 {
     public class NokiaComposer
     {
-        private int currentPosition = 0;
-        private TuneElement currentElement = null;
-        private Tune tune = null;
-        private Scales previousScale;
-        private Durations previousDuration;
-        private NokiaComposerConverter nokiaComposerConverter = null;
-        private PitchConverter pitchConverter = new PitchConverter();
-        private string partition = string.Empty;
+        private const Scales DefaultScales = Scales.Four;
+        private const Durations DefaultDuration = Durations.Quarter;
         private const char Space = ' ';
+        
+        public TuneElement CurrentTuneElement
+        { 
+            get;
+            private set;
+        }
+        public int CurrentPosition
+        { 
+            get;
+            private set;
+        }
+        public string Partition
+        { 
+            get;
+            private set; 
+        }
+
+        private Scales previousScale = DefaultScales;
+        private Durations previousDuration = DefaultDuration;
+        private Tune tune;
+        private NokiaComposerConverter nokiaComposerConverter;
+        private PitchConverter pitchConverter;
         private NokiaComposerTuneElementList nokiaComposerTuneElementList;
 
         public NokiaComposer()
         {
             tune = new Tune();
             nokiaComposerConverter = new NokiaComposerConverter();
+            pitchConverter = new PitchConverter();
             nokiaComposerTuneElementList = new NokiaComposerTuneElementList();
         }
 
@@ -40,12 +58,12 @@ namespace RingtoneComposer.Core
                 positionPartition--;
 
             // Find start & end of tune element
-            var startIndex = Math.Max(partition.Substring(0, positionPartition).LastIndexOf(Space), 0);
-            var endIndex = Math.Max(partition.IndexOf(Space, positionPartition), partition.Length - 1);
+            var startIndex = Math.Max(Partition.Substring(0, positionPartition).LastIndexOf(Space), 0);
+            var endIndex = Math.Max(Partition.IndexOf(Space, positionPartition), Partition.Length - 1);
             var length = endIndex - startIndex;
 
             // TODO : Identify tune element
-            partition.Substring(startIndex, length);
+            Partition.Substring(startIndex, length);
 
             return new Tuple<int, int>(startIndex, endIndex);
         }
@@ -58,7 +76,7 @@ namespace RingtoneComposer.Core
         {
             ValidateChar(c);
 
-            var index = Math.Min(0, partition.Length - 1);
+            var index = Math.Min(0, Partition.Length - 1);
 
             PutCharInternal(c, index);
         }
@@ -85,7 +103,7 @@ namespace RingtoneComposer.Core
 
         private void ValidatePosition(int position)
         {
-            if (position > Math.Min(0, partition.Length - 1))
+            if (position > Math.Min(0, Partition.Length - 1))
                 throw new ArgumentOutOfRangeException("position");
         }
 
@@ -99,6 +117,9 @@ namespace RingtoneComposer.Core
                 InsertNewTuneElement(c, index);
             else
                 EditExistingTuneElement(c, index);
+
+            var tune = new Tune(nokiaComposerTuneElementList.Select(s => s.TuneElement).ToList());
+            Partition = nokiaComposerConverter.ToString(tune);
         }
 
         private void InsertNewTuneElement(char c, int index)
@@ -117,6 +138,8 @@ namespace RingtoneComposer.Core
             }
 
             nokiaComposerTuneElementList.Insert(index, newTuneElement);
+
+            CurrentTuneElement = newTuneElement;
         }
 
         private void EditExistingTuneElement(char c, int index)
@@ -145,6 +168,8 @@ namespace RingtoneComposer.Core
                 tuneElementWithLength.TuneElement = note;
 
             nokiaComposerTuneElementList[index] = tuneElementWithLength;
+
+            CurrentTuneElement = tuneElementWithLength.TuneElement;
         }
     }
 }
