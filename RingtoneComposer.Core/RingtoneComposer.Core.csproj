@@ -49,7 +49,7 @@
     <Compile Include="Business\Helpers\DurationHelper.cs" />
     <Compile Include="Business\Helpers\ScaleHelper.cs" />
     <Compile Include="Business\NokiaComposer.cs" />
-    <Compile Include="Business\NokiaComposerTune.cs" />
+    <Compile Include="Business\NokiaComposerTuneElementList.cs" />
     <Compile Include="Business\Note.cs" />
     <Compile Include="Business\Oscillator\IDetuneable.cs" />
     <Compile Include="Business\Oscillator\IOscillator.cs" />

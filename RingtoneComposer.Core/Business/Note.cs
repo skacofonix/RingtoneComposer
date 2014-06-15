@@ -132,5 +132,15 @@ namespace RingtoneComposer.Core
 
             return isSuccess;
         }
+
+        public bool ToggleSharp()
+        {
+            if (!IsSharpable)
+                return false;
+
+            if (IsSharp)
+                return DecreasePitch();
+            return IncreasePitch();
+        }
     }
 }

@@ -197,7 +197,7 @@ namespace RingtoneComposer.Core.Converter
 
                     case KeyToggleSharp:
                         if (currentNote != null)
-                            ToggleSharpNote(currentNote);
+                            currentNote.ToggleSharp();
                         break;
 
                     default:
