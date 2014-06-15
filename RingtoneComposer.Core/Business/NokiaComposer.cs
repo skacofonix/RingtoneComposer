@@ -96,53 +96,55 @@ namespace RingtoneComposer.Core
                 index = 0;
 
             if (c >= '0' && c <= '7')
+                InsertNewTuneElement(c, index);
+            else
+                EditExistingTuneElement(c, index);
+        }
+
+        private void InsertNewTuneElement(char c, int index)
+        {
+            TuneElement newTuneElement = null;
+
+            if (c == '0')
             {
-                TuneElement newTuneElement = null;
-
-                if(c == '0')
-                {
-                    newTuneElement = new Pause(previousDuration);
-                }
-                else
-                {
-                    var pitch = pitchConverter.Parse(c.ToString());
-
-                    newTuneElement = new Note(pitch, previousScale, previousDuration);
-                }
-
-                nokiaComposerTuneElementList.Insert(index, newTuneElement);
+                newTuneElement = new Pause(previousDuration);
             }
             else
             {
-                // Modify current tune element
-                // it is necessarly to identify this
-                
-                var tuneElementWithLength = nokiaComposerTuneElementList[index];
-                var note = tuneElementWithLength.TuneElement as Note;
+                var pitch = pitchConverter.Parse(c.ToString());
 
-                switch(c)
-                {
-                    case '8' :
-                        tuneElementWithLength.TuneElement.DecreaseDuration();
-                        break;
-                    case '9':
-                        tuneElementWithLength.TuneElement.IncreaseDuration();
-                        break;
-                    case '*' :
-                        note.IncreaseScale();
-                        break;
-                    case '#' :
-                        note.ToggleSharp();
-                        break;
-                }
-
-                // TODO : Check it is the same reference ?
-                if (note != null)
-                    tuneElementWithLength.TuneElement = note;
-
-                nokiaComposerTuneElementList[index] = tuneElementWithLength;
+                newTuneElement = new Note(pitch, previousScale, previousDuration);
             }
 
+            nokiaComposerTuneElementList.Insert(index, newTuneElement);
+        }
+
+        private void EditExistingTuneElement(char c, int index)
+        {
+            var tuneElementWithLength = nokiaComposerTuneElementList[index];
+            var note = tuneElementWithLength.TuneElement as Note;
+
+            switch (c)
+            {
+                case '8':
+                    tuneElementWithLength.TuneElement.DecreaseDuration();
+                    break;
+                case '9':
+                    tuneElementWithLength.TuneElement.IncreaseDuration();
+                    break;
+                case '*':
+                    note.IncreaseScale();
+                    break;
+                case '#':
+                    note.ToggleSharp();
+                    break;
+            }
+
+            // TODO : Check it is the same reference ?
+            if (note != null)
+                tuneElementWithLength.TuneElement = note;
+
+            nokiaComposerTuneElementList[index] = tuneElementWithLength;
         }
     }
 }
