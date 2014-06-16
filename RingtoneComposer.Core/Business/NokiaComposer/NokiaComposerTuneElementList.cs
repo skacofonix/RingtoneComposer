@@ -17,7 +17,7 @@ namespace RingtoneComposer.Core
             get
             {
                 var elementsLength = list.Sum(t => t.Length);
-                var nbSeparator = Math.Min(0, list.Count - 1);
+                var nbSeparator = Math.Max(0, list.Count - 1);
 
                 return elementsLength + nbSeparator;
             }

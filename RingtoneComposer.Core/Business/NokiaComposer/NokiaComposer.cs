@@ -75,7 +75,7 @@ namespace RingtoneComposer.Core
         {
             ValidateChar(c);
 
-            var index = Math.Min(0, Partition.Length - 1);
+            var index = Math.Max(0, Partition.Length - 1);
 
             PutCharInternal(c, index);
         }
