@@ -142,5 +142,21 @@ namespace RingtoneComposer.Core
                 return DecreasePitch();
             return IncreasePitch();
         }
+
+        public override bool Equals(object obj)
+        {
+            if (!base.Equals(obj))
+                return false;
+
+            Note otherElement = obj as Note;
+
+            if (this.Pitch != otherElement.Pitch)
+                return false;
+
+            if (this.Scale != otherElement.Scale)
+                return false;
+
+            return true;
+        }
     }
 }

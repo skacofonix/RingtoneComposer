@@ -50,6 +50,7 @@ namespace RingtoneComposer.Core.Converter
         private const string KeyIncreaseDuration = "9";
         private const string KeyIncreaseScale = "*";
         private const string KeyToggleSharp = "#";
+        private static PitchKeypressConverter keypressConverter = new PitchKeypressConverter();
 
         protected override string InternalToString(Tune t)
         {
@@ -84,7 +85,7 @@ namespace RingtoneComposer.Core.Converter
         {
             var note = tuneElement as Note;
             if (note != null)
-                sb.Append(ConvertPitchToKey(note));
+                sb.Append(keypressConverter.ToString(note.Pitch));
             else if (tuneElement is Pause)
                 sb.Append(KeyPause);
         }
@@ -170,7 +171,7 @@ namespace RingtoneComposer.Core.Converter
                         if (currentTuneElement != null)
                             tuneElementList.Add(currentTuneElement);
 
-                        var pitch = ConvertKeyToPitch(key);
+                        var pitch = keypressConverter.Parse(key);
                         currentTuneElement = new Note(pitch, previousScale, previousDuration);
                         currentTuneElement.Dotted = dotted;
                         break;
@@ -224,75 +225,6 @@ namespace RingtoneComposer.Core.Converter
                 key = item.Groups[4].Value;
                 dotted = false;
             }
-        }
-
-        private static string ConvertPitchToKey(Note note)
-        {
-            string pitchString;
-            switch (note.Pitch)
-            {
-                case Pitches.A:
-                case Pitches.Asharp:
-                    pitchString = KeyA;
-                    break;
-                case Pitches.B:
-                    pitchString = KeyB;
-                    break;
-                case Pitches.C:
-                case Pitches.Csharp:
-                    pitchString = KeyC;
-                    break;
-                case Pitches.D:
-                case Pitches.Dsharp:
-                    pitchString = KeyD;
-                    break;
-                case Pitches.E:
-                    pitchString = KeyE;
-                    break;
-                case Pitches.F:
-                case Pitches.Fsharp:
-                    pitchString = KeyF;
-                    break;
-                case Pitches.G:
-                case Pitches.Gsharp:
-                    pitchString = KeyG;
-                    break;
-                default:
-                    throw new ArgumentOutOfRangeException("Pitch");
-            }
-            return pitchString;
-        }
-
-        private static Pitches ConvertKeyToPitch(string key)
-        {
-            Pitches pitch;
-            switch (key)
-            {
-                case "1":
-                    pitch = Pitches.C;
-                    break;
-                case "2":
-                    pitch = Pitches.D;
-                    break;
-                case "3":
-                    pitch = Pitches.E;
-                    break;
-                case "4":
-                    pitch = Pitches.F;
-                    break;
-                case "5":
-                    pitch = Pitches.G;
-                    break;
-                case "6":
-                    pitch = Pitches.A;
-                    break;
-                case "7":
-                    pitch = Pitches.B;
-                    break;
-                default:
-                    throw new ArgumentOutOfRangeException(key);
-            }
-            return pitch;
         }
 
         private static void ToggleSharpNote(Note currentNote)

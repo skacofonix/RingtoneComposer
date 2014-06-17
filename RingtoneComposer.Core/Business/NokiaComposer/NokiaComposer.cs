@@ -10,36 +10,38 @@ namespace RingtoneComposer.Core
         private const Scales DefaultScales = Scales.Four;
         private const Durations DefaultDuration = Durations.Quarter;
         private const char Space = ' ';
-        
+
         public TuneElement CurrentTuneElement
-        { 
+        {
             get;
             private set;
         }
         public int CurrentPosition
-        { 
+        {
             get;
             private set;
         }
         public string Partition
-        { 
+        {
             get;
-            private set; 
+            private set;
         }
+        public int Length { get { return nokiaComposerTuneElementList.Length; } }
 
         private Scales previousScale = DefaultScales;
         private Durations previousDuration = DefaultDuration;
         private Tune tune;
         private NokiaComposerConverter nokiaComposerConverter;
-        private PitchConverter pitchConverter;
         private NokiaComposerTuneElementList nokiaComposerTuneElementList;
+        private PitchKeypressConverter pitchKeypressConverter;
 
         public NokiaComposer()
         {
             tune = new Tune();
             nokiaComposerConverter = new NokiaComposerConverter();
-            pitchConverter = new PitchConverter();
             nokiaComposerTuneElementList = new NokiaComposerTuneElementList();
+            pitchKeypressConverter = new PitchKeypressConverter();
+            Partition = string.Empty;
         }
 
         public Tuple<int, int> SelectTuneElement(int position)
@@ -131,7 +133,7 @@ namespace RingtoneComposer.Core
             }
             else
             {
-                var pitch = pitchConverter.Parse(c.ToString());
+                var pitch = pitchKeypressConverter.Parse(c.ToString());
 
                 newTuneElement = new Note(pitch, previousScale, previousDuration);
             }

@@ -37,5 +37,24 @@ namespace RingtoneComposer.Core
 
             return isSuccess;
         }
+
+        public override bool Equals(object obj)
+        {
+            if (obj == null)
+                return false;
+
+            if(!(obj is TuneElement))
+                return false;
+
+            TuneElement otherElement = obj as TuneElement;
+
+            if (this.Dotted == otherElement.Dotted)
+                return false;
+
+            if (this.Duration == otherElement.Duration)
+                return false;
+
+            return true;
+        }
     }
 }

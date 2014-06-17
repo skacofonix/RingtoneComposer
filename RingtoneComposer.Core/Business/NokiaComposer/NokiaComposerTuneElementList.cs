@@ -80,6 +80,9 @@ namespace RingtoneComposer.Core
             startPositionFounded = null;
             indexFounded = 0;
 
+            if (!list.Any())
+                return;
+
             int previousStartIndex = 0;
             int currentStartIndex = 0;
             do

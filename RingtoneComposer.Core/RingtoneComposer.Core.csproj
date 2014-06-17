@@ -42,6 +42,7 @@
     <Compile Include="Business\Converter\IConverter.cs" />
     <Compile Include="Business\Converter\NokiaKeypressConverter.cs" />
     <Compile Include="Business\Converter\PitchConverter.cs" />
+    <Compile Include="Business\Converter\PitchKeypressConverter.cs" />
     <Compile Include="Business\Converter\ScaleConverter.cs" />
     <Compile Include="Business\Converter\TuneConverter.cs" />
     <Compile Include="Business\Enum\Durations.cs" />

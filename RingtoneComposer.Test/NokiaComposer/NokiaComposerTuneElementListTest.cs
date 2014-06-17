@@ -10,12 +10,6 @@ namespace RingtoneComposer.Test
         private NokiaComposerTuneElementList list = new NokiaComposerTuneElementList();
 
         [TestMethod]
-        public void Initialize()
-        {
-            Assert.IsNotNull(list);
-        }
-
-        [TestMethod]
         public void AddTuneElement()
         {
             Assert.AreEqual(0, list.Length);
