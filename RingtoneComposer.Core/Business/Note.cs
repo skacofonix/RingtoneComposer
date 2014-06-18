@@ -133,6 +133,18 @@ namespace RingtoneComposer.Core
             return isSuccess;
         }
 
+        public bool IncreaseScaleModulo()
+        {
+            var newScale = ScaleHelper.IncreaseModulo(Scale);
+
+            bool isSuccess = Scale != newScale;
+
+            if (isSuccess)
+                Scale = newScale;
+
+            return isSuccess;
+        }
+
         public bool ToggleSharp()
         {
             if (!IsSharpable)

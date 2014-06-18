@@ -48,10 +48,10 @@ namespace RingtoneComposer.Core
 
             TuneElement otherElement = obj as TuneElement;
 
-            if (this.Dotted == otherElement.Dotted)
+            if (this.Dotted != otherElement.Dotted)
                 return false;
 
-            if (this.Duration == otherElement.Duration)
+            if (this.Duration != otherElement.Duration)
                 return false;
 
             return true;

@@ -53,6 +53,7 @@ namespace RingtoneComposer.Core.ViewModels
         private IRingtoneImporterService ringtoneImporterService;
         private ISoundGeneratorService soundGeneratorService;
         private ISoundPlayer soundPlayer;
+        private NokiaComposer nokiaComposer = new NokiaComposer();
 
         public ComposerViewModel(IRingtoneImporterService ringtoneImporterService,
                                  ISoundGeneratorService soundGeneratorService,
@@ -141,25 +142,33 @@ namespace RingtoneComposer.Core.ViewModels
 
         #endregion
 
+        #region KeyPressesCommand
 
-        private MvxCommand keyOnePressedCommand;
-        public ICommand KeyOnePressedCommand
+        private MvxCommand<char> keyPressedCommand;
+        public ICommand KeyPressedCommand
         {
             get
             {
-                if(keyOnePressedCommand == null)
+                if(keyPressedCommand == null)
                 {
-                    keyOnePressedCommand = new MvxCommand(() =>
+                    keyPressedCommand = new MvxCommand<char>(c =>
                     {
-                        // TODO
+                        nokiaComposer.PutChar(c);
+                        Partition = nokiaComposer.Partition;
+
+                        var note = nokiaComposer.CurrentTuneElement as Note;
+                        if (note != null)
+                            soundPlayer.Play(note, tune.Tempo ?? 120);
                     },
-                    () =>
+                    (c) =>
                     {
                         return true;
                     });
                 }
-                return keyOnePressedCommand;
+                return keyPressedCommand;
             }
         }
+        
+        #endregion
     }
 }

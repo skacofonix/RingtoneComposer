@@ -22,7 +22,7 @@ namespace RingtoneComposer.Core
                 return elementsLength + nbSeparator;
             }
         }
-        
+
         public int GetIndexElementAtStringPosition(int position)
         {
             ValidatePosition(position);
@@ -87,7 +87,7 @@ namespace RingtoneComposer.Core
             int currentStartIndex = 0;
             do
             {
-                if (currentStartIndex > position)
+                if (currentStartIndex >= position)
                 {
                     startPositionFounded = previousStartIndex;
                 }
@@ -95,14 +95,16 @@ namespace RingtoneComposer.Core
                 {
                     previousStartIndex = currentStartIndex;
 
-                    currentStartIndex += list[indexFounded.Value].Length;
-                    if (indexFounded == Math.Max(0, list.Count - 1))
-                        currentStartIndex += 1;
+                    if (indexFounded < list.Count)
+                    {
+                        currentStartIndex += list[indexFounded.Value].Length;
+                        if (indexFounded == Math.Max(0, list.Count - 1))
+                            currentStartIndex += 1;
+
+                        indexFounded++;
+                    }
                 }
-
-                indexFounded++;
-
-            } while (indexFounded < list.Count || !startPositionFounded.HasValue);
+            } while (indexFounded <= list.Count && !startPositionFounded.HasValue);
         }
 
         public int IndexOf(NokiaComposerTuneElementWithLength item)

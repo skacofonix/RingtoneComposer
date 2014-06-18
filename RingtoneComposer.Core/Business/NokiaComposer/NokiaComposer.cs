@@ -77,9 +77,9 @@ namespace RingtoneComposer.Core
         {
             ValidateChar(c);
 
-            var index = Math.Max(0, Partition.Length - 1);
+            var position = Math.Max(0, Partition.Length - 1);
 
-            PutCharInternal(c, index);
+            PutCharInternal(c, position);
         }
 
         /// <summary>
@@ -115,9 +115,14 @@ namespace RingtoneComposer.Core
                 index = 0;
 
             if (c >= '0' && c <= '7')
+            {
                 InsertNewTuneElement(c, index);
+            }
             else
+            {
+                index = Math.Min(index, nokiaComposerTuneElementList.Count - 1);
                 EditExistingTuneElement(c, index);
+            }
 
             var tune = new Tune(nokiaComposerTuneElementList.Select(s => s.TuneElement).ToList());
             Partition = nokiaComposerConverter.ToString(tune);
@@ -152,21 +157,20 @@ namespace RingtoneComposer.Core
             {
                 case '8':
                     tuneElementWithLength.TuneElement.DecreaseDuration();
+                    previousDuration = tuneElementWithLength.TuneElement.Duration;
                     break;
                 case '9':
                     tuneElementWithLength.TuneElement.IncreaseDuration();
+                    previousDuration = tuneElementWithLength.TuneElement.Duration;
                     break;
                 case '*':
-                    note.IncreaseScale();
+                    note.IncreaseScaleModulo();
+                    previousScale = note.Scale;
                     break;
                 case '#':
                     note.ToggleSharp();
                     break;
             }
-
-            // TODO : Check it is the same reference ?
-            if (note != null)
-                tuneElementWithLength.TuneElement = note;
 
             nokiaComposerTuneElementList[index] = tuneElementWithLength;
 
