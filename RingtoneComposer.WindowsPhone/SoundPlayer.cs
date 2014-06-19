@@ -27,7 +27,7 @@ namespace RingtoneComposer.WindowsPhone
 			}
 		}
 
-		public void Play(Note note, double bpm)
+		public void Play(Note note, int bpm)
 		{
 			Stop();
 

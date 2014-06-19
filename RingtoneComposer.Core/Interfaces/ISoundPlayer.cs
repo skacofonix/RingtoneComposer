@@ -10,7 +10,7 @@ namespace RingtoneComposer.Core.Interfaces
     {
         void Play(Tune tune);
 
-        void Play(Note note, double period);
+        void Play(Note note, int bpm);
 
         void Stop();
     }

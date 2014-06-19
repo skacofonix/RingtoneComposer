@@ -34,7 +34,7 @@ namespace RingtoneComposer.Core
                     yield return item;
         }
 
-        private IEnumerable<double> GenerateSoundData(TuneElement tuneElement, double bpm)
+        private IEnumerable<double> GenerateSoundData(TuneElement tuneElement, double period)
         {
             double frequenceNote = 0;
 
@@ -44,13 +44,15 @@ namespace RingtoneComposer.Core
                 
             oscillator.SetFrequency(frequenceNote);
 
-            var loopLength = SampleRate * bpm * (durationConverter.GetValue(tuneElement.Duration) * (tuneElement.Dotted ? 1.5 : 1));
+            var loopLength = SampleRate * period * (durationConverter.GetValue(tuneElement.Duration) * (tuneElement.Dotted ? 1.5 : 1));
             for (var i = 0; i < loopLength; i++)
                 yield return oscillator.GetNext(i);
         }
 
-        public Stream NoteToWaveStream(Note note, double period)
+        public Stream NoteToWaveStream(Note note, int bpm)
         {
+            double period = ComputePeriod(bpm);
+
             var soundData = GenerateSoundData(note, period).ToList();
 
             const int RIFF = 0x46464952;

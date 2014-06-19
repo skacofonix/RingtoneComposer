@@ -12,10 +12,9 @@ namespace RingtoneComposer.Core.ViewModels
         public string Partition
         {
             get { return partition; }
-            set
+            private set
             {
                 partition = value;
-                Tune = ringtoneImporterService.Import(partition);
                 RaisePropertyChanged(() => Partition);
             }
         }
@@ -50,48 +49,51 @@ namespace RingtoneComposer.Core.ViewModels
             private set { ringtoneMp3Stream = value; }
         }
 
-        private IRingtoneImporterService ringtoneImporterService;
         private ISoundGeneratorService soundGeneratorService;
         private ISoundPlayer soundPlayer;
         private NokiaComposer nokiaComposer = new NokiaComposer();
 
-        public ComposerViewModel(IRingtoneImporterService ringtoneImporterService,
-                                 ISoundGeneratorService soundGeneratorService,
+        public ComposerViewModel(ISoundGeneratorService soundGeneratorService,
                                  ISoundPlayer soundPlayer)
         {
-            this.ringtoneImporterService = ringtoneImporterService;
             this.soundGeneratorService = soundGeneratorService;
             this.soundPlayer = soundPlayer;
+            Tune = new Tune { Tempo = 120 };
         }
 
         public void Init()
         {
             // HACK : Just for demo
-            Partition = "TocattaFugue:d=32,o=5,b=100:a#.,g#.,2a#,g#,f#,f,d#.,4d.,2d#,a#.,g#.,2a#,8f,8f#,8d,2d#,8d,8f,8g#,8b,8d6,4f6,4g#.,4f.,1g,32p";
+            //Partition = "TocattaFugue:d=32,o=5,b=100:a#.,g#.,2a#,g#,f#,f,d#.,4d.,2d#,a#.,g#.,2a#,8f,8f#,8d,2d#,8d,8f,8g#,8b,8d6,4f6,4g#.,4f.,1g,32p";
         }
 
-        #region ParsePartitionCommand
+        #region KeyPressesCommand
 
-        private MvxCommand parsePartitionCommand;
-        public ICommand ParsePartitionCommand
+        private MvxCommand<char> keyPressedCommand;
+        public ICommand KeyPressedCommand
         {
             get
             {
-                if (parsePartitionCommand == null)
+                if(keyPressedCommand == null)
                 {
-                    parsePartitionCommand = new MvxCommand(() =>
+                    keyPressedCommand = new MvxCommand<char>(c =>
                     {
-                        Tune = ringtoneImporterService.Import(partition);
+                        nokiaComposer.PutChar(c);
+                        Partition = nokiaComposer.Partition;
+
+                        var note = nokiaComposer.CurrentTuneElement as Note;
+                        if (note != null)
+                            soundPlayer.Play(note, tune.Tempo ?? 120);
                     },
-                    () =>
+                    (c) =>
                     {
-                        return ringtoneImporterService.CheckPartitionValitity(partition);
+                        return true;
                     });
                 }
-                return parsePartitionCommand;
+                return keyPressedCommand;
             }
         }
-
+        
         #endregion
 
         #region PlayRingtoneCommand
@@ -140,35 +142,6 @@ namespace RingtoneComposer.Core.ViewModels
             }
         }
 
-        #endregion
-
-        #region KeyPressesCommand
-
-        private MvxCommand<char> keyPressedCommand;
-        public ICommand KeyPressedCommand
-        {
-            get
-            {
-                if(keyPressedCommand == null)
-                {
-                    keyPressedCommand = new MvxCommand<char>(c =>
-                    {
-                        nokiaComposer.PutChar(c);
-                        Partition = nokiaComposer.Partition;
-
-                        var note = nokiaComposer.CurrentTuneElement as Note;
-                        if (note != null)
-                            soundPlayer.Play(note, tune.Tempo ?? 120);
-                    },
-                    (c) =>
-                    {
-                        return true;
-                    });
-                }
-                return keyPressedCommand;
-            }
-        }
-        
         #endregion
     }
 }
