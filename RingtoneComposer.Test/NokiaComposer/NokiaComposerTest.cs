@@ -74,7 +74,7 @@ namespace RingtoneComposer.Test
             composer.PutChar('1');
             composer.PutChar('*');
             Assert.IsTrue(new Note(Pitches.C, Scales.Five, Durations.Quarter).Equals(composer.CurrentTuneElement));
-            Assert.AreEqual(totalLength += 4, composer.Length);
+            Assert.AreEqual(totalLength += 3, composer.Length);
 
             composer.PutChar('2');
             composer.PutChar('*');
@@ -100,40 +100,45 @@ namespace RingtoneComposer.Test
             composer.PutChar('1');
             composer.PutChar('8');
             Assert.IsTrue(new Note(Pitches.C, Scales.Four, Durations.Eight).Equals(composer.CurrentTuneElement));
-            Assert.AreEqual(totalLength += 2, composer.Length);
+            Assert.AreEqual(totalLength += 3, composer.Length);
 
             composer.PutChar('2');
             composer.PutChar('8');
             Assert.IsTrue(new Note(Pitches.D, Scales.Four, Durations.Sixteenth).Equals(composer.CurrentTuneElement));
-            Assert.AreEqual(totalLength += 4, composer.Length);
+            Assert.AreEqual(totalLength += 5, composer.Length);
 
             composer.PutChar('3');
             composer.PutChar('8');
             Assert.IsTrue(new Note(Pitches.E, Scales.Four, Durations.ThirtySecond).Equals(composer.CurrentTuneElement));
-            Assert.AreEqual(totalLength += 4, composer.Length);
+            Assert.AreEqual(totalLength += 5, composer.Length);
 
             composer.PutChar('4');
             composer.PutChar('8');
             Assert.IsTrue(new Note(Pitches.F, Scales.Four, Durations.ThirtySecond).Equals(composer.CurrentTuneElement));
-            Assert.AreEqual(totalLength += 4, composer.Length);
+            Assert.AreEqual(totalLength += 5, composer.Length);
 
             composer.PutChar('5');
             composer.PutChar('9');
             Assert.IsTrue(new Note(Pitches.G, Scales.Four, Durations.Sixteenth).Equals(composer.CurrentTuneElement));
-            Assert.AreEqual(totalLength += 4, composer.Length);
+            Assert.AreEqual(totalLength += 5, composer.Length);
 
             composer.PutChar('6');
             composer.PutChar('9');
             composer.PutChar('9');
             composer.PutChar('9');
             composer.PutChar('9');
-            Assert.IsTrue(new Note(Pitches.A, Scales.Four, Durations.Half).Equals(composer.CurrentTuneElement));
-            Assert.AreEqual(totalLength += 3, composer.Length);
+            Assert.IsTrue(new Note(Pitches.A, Scales.Four, Durations.Whole).Equals(composer.CurrentTuneElement));
+            Assert.AreEqual(totalLength += 4, composer.Length);
 
             composer.PutChar('7');
             composer.PutChar('9');
-            Assert.IsTrue(new Note(Pitches.B, Scales.Five, Durations.Whole).Equals(composer.CurrentTuneElement));
-            Assert.AreEqual(totalLength += 3, composer.Length);
+            Assert.IsTrue(new Note(Pitches.B, Scales.Four, Durations.Whole).Equals(composer.CurrentTuneElement));
+            Assert.AreEqual(totalLength += 4, composer.Length);
+
+            composer.PutChar('7');
+            composer.PutChar('8');
+            Assert.IsTrue(new Note(Pitches.B, Scales.Four, Durations.Half).Equals(composer.CurrentTuneElement));
+            Assert.AreEqual(totalLength += 4, composer.Length);
         }
 
         [TestMethod]

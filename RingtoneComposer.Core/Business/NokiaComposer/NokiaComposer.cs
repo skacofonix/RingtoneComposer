@@ -151,26 +151,33 @@ namespace RingtoneComposer.Core
         private void EditExistingTuneElement(char c, int index)
         {
             var tuneElementWithLength = nokiaComposerTuneElementList[index];
-            var note = tuneElementWithLength.TuneElement as Note;
+            var tuneElement = tuneElementWithLength.TuneElement;
+            var note = tuneElement as Note;
 
             switch (c)
             {
                 case '8':
-                    tuneElementWithLength.TuneElement.DecreaseDuration();
-                    previousDuration = tuneElementWithLength.TuneElement.Duration;
+                    tuneElement.DecreaseDuration();
+                    previousDuration = tuneElement.Duration;
                     break;
                 case '9':
-                    tuneElementWithLength.TuneElement.IncreaseDuration();
-                    previousDuration = tuneElementWithLength.TuneElement.Duration;
+                    tuneElement.IncreaseDuration();
+                    previousDuration = tuneElement.Duration;
                     break;
                 case '*':
-                    note.IncreaseScaleModulo();
-                    previousScale = note.Scale;
+                    if (note != null)
+                    {
+                        note.IncreaseScaleModulo();
+                        previousScale = note.Scale;
+                    }
                     break;
                 case '#':
-                    note.ToggleSharp();
+                    if(note != null)
+                        note.ToggleSharp();
                     break;
             }
+
+            tuneElementWithLength.ComputeElementStringLength();
 
             nokiaComposerTuneElementList[index] = tuneElementWithLength;
 

@@ -40,16 +40,13 @@ namespace RingtoneComposer.Core.Converter
 
             foreach (var tuneElement in t.TuneElementList)
             {
-                if (tuneElement.Duration != Durations.Whole)
-                    sb.Append(DurationConverter.ToString(tuneElement.Duration));
+                sb.Append(DurationConverter.ToString(tuneElement.Duration));
 
                 var note = tuneElement as Note;
                 if (note != null)
                 {
                     sb.Append(PitchConverter.ToString(note.Pitch));
-
-                    if (note.Scale != Scales.Four)
-                        sb.Append((ScaleConverter.GetValue(note.Scale) - OffsetScale).ToString(CultureInfo.InvariantCulture));
+                    sb.Append((ScaleConverter.GetValue(note.Scale) - OffsetScale).ToString(CultureInfo.InvariantCulture));
                 }
                 else if (tuneElement is Pause)
                 {

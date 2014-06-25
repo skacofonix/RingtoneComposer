@@ -104,7 +104,7 @@ namespace RingtoneComposer.Core
                         indexFounded++;
                     }
                 }
-            } while (indexFounded <= list.Count && !startPositionFounded.HasValue);
+            } while (indexFounded < list.Count && !startPositionFounded.HasValue);
         }
 
         public int IndexOf(NokiaComposerTuneElementWithLength item)

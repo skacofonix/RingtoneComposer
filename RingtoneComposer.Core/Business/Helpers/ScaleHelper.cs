@@ -15,7 +15,9 @@ namespace RingtoneComposer.Core.Helpers
 
         public static Scales IncreaseModulo(this Scales s)
         {
-            return (Scales)((int)s - 4 + 1 % 4 + 4);
+            if (s == Scales.Seven)
+                return Scales.Four;
+            return Increase(s);
         }
 
         public static Scales Decrease(this Scales s)

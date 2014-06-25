@@ -14,7 +14,7 @@ namespace RingtoneComposer.Core
             set
             {
                 tuneElement = value;
-                Length = ComputeElementStringLength(tuneElement);
+                ComputeElementStringLength();
             }
         }
         private TuneElement tuneElement;
@@ -30,7 +30,7 @@ namespace RingtoneComposer.Core
             TuneElement = tuneElement;
         }
 
-        private int ComputeElementStringLength(TuneElement tuneElement)
+        public void ComputeElementStringLength()
         {
             int length = 1;
 
@@ -45,13 +45,13 @@ namespace RingtoneComposer.Core
             var note = tuneElement as Note;
             if (note != null)
             {
-                length += 1;
+                length += 1;    // Scale
 
                 if (note.IsSharp)
                     length += 1;
             }
 
-            return length;
+            Length = length;
         }
     }
 }
