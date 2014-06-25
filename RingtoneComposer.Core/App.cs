@@ -1,6 +1,4 @@
-using Cirrious.CrossCore;
 using Cirrious.CrossCore.IoC;
-using RingtoneComposer.Core.Services;
 
 namespace RingtoneComposer.Core
 {
@@ -14,8 +12,6 @@ namespace RingtoneComposer.Core
                 .RegisterAsLazySingleton();
 
             RegisterAppStart<ViewModels.RingtonesViewModel>();
-
-            //Mvx.RegisterSingleton<IRingtoneImporterService>(new RttlImporterService());
         }
     }
 }

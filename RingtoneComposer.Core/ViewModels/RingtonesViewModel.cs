@@ -2,9 +2,7 @@
 using RingtoneComposer.Core.Converter;
 using RingtoneComposer.Core.Interfaces;
 using RingtoneComposer.Core.Services;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Linq;
 using System.Windows.Input;
 
 namespace RingtoneComposer.Core.ViewModels
@@ -45,8 +43,6 @@ namespace RingtoneComposer.Core.ViewModels
 
         private void LoadData()
         {
-            var rttlConverter = new RttlConverter();
-
             var tunes = new ObservableCollection<Tune>
             {
                 rttlConverter.Parse("TocattaFugue:d=32,o=5,b=100:a#.,g#.,2a#,g#,f#,f,d#.,4d.,2d#,a#.,g#.,2a#,8f,8f#,8d,2d#,8d,8f,8g#,8b,8d6,4f6,4g#.,4f.,1g,32p"),
@@ -61,8 +57,6 @@ namespace RingtoneComposer.Core.ViewModels
 
             this.Tunes = tunes;
         }
-
-
 
         #region PlayRingtoneCommand
 

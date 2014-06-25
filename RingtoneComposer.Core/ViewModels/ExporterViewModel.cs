@@ -3,11 +3,7 @@ using Cirrious.MvvmCross.ViewModels;
 using RingtoneComposer.Core.Converter;
 using RingtoneComposer.Core.Services;
 using RingtoneComposer.Core.ViewModels.Parameters;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Input;
 
 namespace RingtoneComposer.Core.ViewModels
@@ -25,18 +21,6 @@ namespace RingtoneComposer.Core.ViewModels
             }
         }
 
-        private TuneConverter converter;
-        public TuneConverter Converter
-        {
-            get { return converter; }
-            set
-            { 
-                converter = value;
-                exporterService = new RingtoneExporterService(converter);
-                RaisePropertyChanged(() => Converter);
-            }
-        }
-
         private Tune tune;
 
         private RttlConverter rttlConverter = new RttlConverter();
@@ -47,7 +31,7 @@ namespace RingtoneComposer.Core.ViewModels
         public ExporterViewModel()
         {
             // TODO : Resolve list of IGingtoneExporterService
-            //this.exporterService = Mvx.Resolve<IRingtoneExporterService>();
+            this.exporterService = Mvx.Resolve<IRingtoneExporterService>();
         }
 
         public void Init(ExporterParameters parameters)

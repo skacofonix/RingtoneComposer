@@ -1,5 +1,4 @@
 ﻿using RingtoneComposer.Core.Helpers;
-using System;
 namespace RingtoneComposer.Core
 {
     public class Note : TuneElement
