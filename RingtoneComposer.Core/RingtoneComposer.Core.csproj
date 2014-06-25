@@ -63,7 +63,7 @@
     <Compile Include="Business\Oscillator\SquareOscilator.cs" />
     <Compile Include="Business\Pause.cs" />
     <Compile Include="Business\Enum\Pitches.cs" />
-    <Compile Include="ComposerParameters.cs" />
+    <Compile Include="ViewModels\Parameters\ComposerParameters.cs" />
     <Compile Include="Interfaces\ISoundPlayer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Business\Enum\Scales.cs" />
@@ -87,6 +87,8 @@
     <Compile Include="ViewModels\ComposerViewModel.cs" />
     <Compile Include="ViewModels\ExporterViewModel.cs" />
     <Compile Include="ViewModels\ImporterViewModel.cs" />
+    <Compile Include="ViewModels\Parameters\ExporterParameters.cs" />
+    <Compile Include="ViewModels\Parameters\RttlParametersBase.cs" />
     <Compile Include="ViewModels\RingtonesViewModel.cs" />
   </ItemGroup>
   <ItemGroup>

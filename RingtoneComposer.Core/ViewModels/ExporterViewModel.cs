@@ -2,6 +2,7 @@
 using Cirrious.MvvmCross.ViewModels;
 using RingtoneComposer.Core.Converter;
 using RingtoneComposer.Core.Services;
+using RingtoneComposer.Core.ViewModels.Parameters;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -50,6 +51,11 @@ namespace RingtoneComposer.Core.ViewModels
         {
             this.tune = tune;
             this.exporterService = exporterService;
+        }
+
+        public void Init(ExporterParameters parameters)
+        {
+
         }
 
         #region ExportCommand
