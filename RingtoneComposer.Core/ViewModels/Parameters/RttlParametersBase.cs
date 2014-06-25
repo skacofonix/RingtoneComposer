@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace RingtoneComposer.Core.ViewModels.Parameters
 {
-    virtual class RttlParametersBase
+    public abstract class RttlParametersBase
     {
         public string Rttl { get; set; }
     }

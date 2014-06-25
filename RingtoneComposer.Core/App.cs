@@ -13,7 +13,6 @@ namespace RingtoneComposer.Core
                 .AsInterfaces()
                 .RegisterAsLazySingleton();
 
-            //RegisterAppStart<ViewModels.ComposerViewModel>();
             RegisterAppStart<ViewModels.RingtonesViewModel>();
 
             //Mvx.RegisterSingleton<IRingtoneImporterService>(new RttlImporterService());

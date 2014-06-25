@@ -1,5 +1,5 @@
 ﻿<views:MvxPhonePage
-    x:Class="RingtoneComposer.WindowsPhone.Views.RingtonesView"
+    x:Class="RingtoneComposer.WindowsPhone.Views.ExporterView"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:phone="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone"
@@ -24,24 +24,19 @@
         <!--TitlePanel contient le nom de l'application et le titre de la page-->
         <StackPanel Grid.Row="0" Margin="12,17,0,28">
             <TextBlock Text="Ringtone Composer" Style="{StaticResource PhoneTextNormalStyle}"/>
-            <TextBlock Text="Ringtones" Margin="9,-7,0,0" Style="{StaticResource PhoneTextTitle1Style}"/>
+            <TextBlock Text="Export Ringtone" Margin="9,-7,0,0" Style="{StaticResource PhoneTextTitle1Style}"/>
         </StackPanel>
 
         <!--ContentPanel - placez tout contenu supplémentaire ici-->
         <Grid x:Name="ContentPanel" Grid.Row="1" Margin="12,0,12,0">
-            <ListBox x:Name="RingtoneListBox" ItemsSource="{Binding Tunes}">
-                <ListBox.ItemTemplate>
-                    <DataTemplate>
-                        <StackPanel Orientation="Horizontal">
-                            <Button Content="Play" Command="{Binding ElementName=RingtoneListBox, Path=DataContext.PlayRingtoneCommand}" CommandParameter="{Binding}" /> 
-                            <TextBlock Text="{Binding Name}" Margin="0,0,0,50" VerticalAlignment="Center"/>
-                            <Button Content="Edit" Command="{Binding ElementName=RingtoneListBox, Path=DataContext.EditRingtoneCommand}" CommandParameter="{Binding}" />
-                            <Button Content="Export" Command="{Binding ElementName=RingtoneListBox, Path=DataContext.ExportRingtoneCommand}" CommandParameter="{Binding}" />
-                        </StackPanel>
-                    </DataTemplate>
-                </ListBox.ItemTemplate>
-            </ListBox>
-            <Button Content="New ringtone" VerticalAlignment="Bottom" Command="{Binding EditRingtoneCommand}"/>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="69*"/>
+                <RowDefinition Height="450*"/>
+                <RowDefinition Height="88*"/>
+            </Grid.RowDefinitions>
+            <Button Content="Export" HorizontalAlignment="Left" Grid.Row="2" VerticalAlignment="Top" Command="{Binding ExportRingtoneCommand, Mode=TwoWay}"/>
+            <phone:LongListSelector HorizontalAlignment="Left" Height="100" Margin="68,24,0,0" VerticalAlignment="Top" Width="100"/>
+
         </Grid>
     </Grid>
 

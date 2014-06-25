@@ -66,7 +66,7 @@ namespace RingtoneComposer.Core.ViewModels
 
         public void Init(ComposerParameters parameters)
         {
-            if (!string.IsNullOrEmpty(parameters.Rttl))
+            if (parameters != null && !string.IsNullOrEmpty(parameters.Rttl))
             {
                 Tune = rttlConverter.Parse(parameters.Rttl);
                 Partition = nokiaComposerConverter.ToString(Tune);
@@ -145,6 +145,33 @@ namespace RingtoneComposer.Core.ViewModels
                     });
                 }
                 return saveRingtoneCommand;
+            }
+        }
+
+        #endregion
+
+        #region ExportRingtoneCommand
+
+        private MvxCommand<Tune> exportRingtoneCommand;
+        public ICommand ExportRingtoneCommand
+        {
+            get
+            {
+                if (exportRingtoneCommand == null)
+                {
+                    exportRingtoneCommand = new MvxCommand<Tune>(
+                    (t) =>
+                    {
+                        soundPlayer.Stop();
+                        var rttl = rttlConverter.ToString(t);
+                        ShowViewModel<ExporterViewModel>(new ComposerParameters { Rttl = rttl });
+                    },
+                    (t) =>
+                    {
+                        return true;
+                    });
+                }
+                return exportRingtoneCommand;
             }
         }
 

@@ -39,23 +39,24 @@ namespace RingtoneComposer.Core.ViewModels
 
         private Tune tune;
 
+        private RttlConverter rttlConverter = new RttlConverter();
         private IRingtoneExporterService exporterService;
 
-        public ExporterViewModel(Tune tune)
-        {
-            this.tune = tune;
-            this.exporterService = Mvx.Resolve<IRingtoneExporterService>();
-        }
+        private List<IRingtoneExporterService> exporterServices;
 
-        public ExporterViewModel(Tune tune, IRingtoneExporterService exporterService)
+        public ExporterViewModel()
         {
-            this.tune = tune;
-            this.exporterService = exporterService;
+            // TODO : Resolve list of IGingtoneExporterService
+            //this.exporterService = Mvx.Resolve<IRingtoneExporterService>();
         }
 
         public void Init(ExporterParameters parameters)
         {
-
+            if(parameters != null && !string.IsNullOrEmpty(parameters.Rttl))
+            {
+                tune = rttlConverter.Parse(parameters.Rttl);
+                PartitionExported = exporterService.Export(tune);
+            }
         }
 
         #region ExportCommand

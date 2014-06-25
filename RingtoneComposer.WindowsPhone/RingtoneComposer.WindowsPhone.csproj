@@ -109,6 +109,9 @@
     <Compile Include="Views\Controls\PhoneKeyboardControl.xaml.cs">
       <DependentUpon>PhoneKeyboardControl.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\ExporterView.xaml.cs">
+      <DependentUpon>ExporterView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\RingtonesView.xaml.cs">
       <DependentUpon>RingtonesView.xaml</DependentUpon>
     </Compile>
@@ -126,6 +129,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\Controls\PhoneKeyboardControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\ExporterView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -165,9 +172,6 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Assets\Tiles\IconicTileSmall.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="lame_enc.dll">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
   </ItemGroup>

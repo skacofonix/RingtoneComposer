@@ -105,7 +105,7 @@ namespace RingtoneComposer.Core.ViewModels
                         var rttl = rttlConverter.ToString(t);
                         ShowViewModel<ComposerViewModel>(new ComposerParameters { Rttl = rttl });
                     },
-                    (T) =>
+                    (t) =>
                     {
                         return true;
                     });
@@ -118,19 +118,21 @@ namespace RingtoneComposer.Core.ViewModels
 
         #region ExportRingtoneCommand
 
-        private MvxCommand exportRingtoneCommand;
+        private MvxCommand<Tune> exportRingtoneCommand;
         public ICommand ExportRingtoneCommand
         {
             get
             {
                 if (exportRingtoneCommand == null)
                 {
-                    exportRingtoneCommand = new MvxCommand(() =>
+                    exportRingtoneCommand = new MvxCommand<Tune>(
+                    (t) =>
                     {
                         soundPlayer.Stop();
-                        ShowViewModel<ExporterViewModel>();
+                        var rttl = rttlConverter.ToString(t);
+                        ShowViewModel<ExporterViewModel>(new ComposerParameters { Rttl = rttl });
                     },
-                    () =>
+                    (t) =>
                     {
                         return true;
                     });
@@ -154,7 +156,6 @@ namespace RingtoneComposer.Core.ViewModels
                     {
                         soundPlayer.Stop();
                         ShowViewModel<ImporterViewModel>();
-
                     },
                     () =>
                     {
