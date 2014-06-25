@@ -63,7 +63,7 @@ namespace RingtoneComposer.Test
               100
             );
 
-            Assert.AreEqual(converter.ToString(t), "A 2A#2 4- ");
+            Assert.AreEqual(converter.ToString(t).Trim(), "1A1 2A#2 4-");
         }
     }
 }
