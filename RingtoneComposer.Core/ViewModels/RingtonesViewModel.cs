@@ -26,6 +26,7 @@ namespace RingtoneComposer.Core.ViewModels
 
         private IRingtoneStoreService ringtoneStore;
         private ISoundPlayer soundPlayer;
+        private RttlConverter rttlConverter = new RttlConverter();
 
         public RingtonesViewModel(
             IRingtoneStoreService ringtoneStore,
@@ -90,19 +91,21 @@ namespace RingtoneComposer.Core.ViewModels
 
         #region EditRingtoneCommand
 
-        private MvxCommand editRingtoneCommand;
+        private MvxCommand<Tune> editRingtoneCommand;
         public ICommand EditRingtoneCommand
         {
             get
             {
                 if (editRingtoneCommand == null)
                 {
-                    editRingtoneCommand = new MvxCommand(() =>
+                    editRingtoneCommand = new MvxCommand<Tune>(
+                    (t) =>
                     {
                         soundPlayer.Stop();
-                        ShowViewModel<ComposerViewModel>();
+                        var rttl = rttlConverter.ToString(t);
+                        ShowViewModel<ComposerViewModel>(new ComposerParameters { Rttl = rttl });
                     },
-                    () =>
+                    (T) =>
                     {
                         return true;
                     });

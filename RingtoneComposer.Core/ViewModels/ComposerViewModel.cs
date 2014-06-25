@@ -1,4 +1,5 @@
 ﻿using Cirrious.MvvmCross.ViewModels;
+using RingtoneComposer.Core.Converter;
 using RingtoneComposer.Core.Interfaces;
 using RingtoneComposer.Core.Services;
 using System.IO;
@@ -52,6 +53,8 @@ namespace RingtoneComposer.Core.ViewModels
         private ISoundGeneratorService soundGeneratorService;
         private ISoundPlayer soundPlayer;
         private NokiaComposer nokiaComposer = new NokiaComposer();
+        private RttlConverter rttlConverter = new RttlConverter();
+        private NokiaComposerConverter nokiaComposerConverter = new NokiaComposerConverter();
 
         public ComposerViewModel(ISoundGeneratorService soundGeneratorService,
                                  ISoundPlayer soundPlayer)
@@ -61,10 +64,13 @@ namespace RingtoneComposer.Core.ViewModels
             Tune = new Tune { Tempo = 120 };
         }
 
-        public void Init()
+        public void Init(ComposerParameters parameters)
         {
-            // HACK : Just for demo
-            //Partition = "TocattaFugue:d=32,o=5,b=100:a#.,g#.,2a#,g#,f#,f,d#.,4d.,2d#,a#.,g#.,2a#,8f,8f#,8d,2d#,8d,8f,8g#,8b,8d6,4f6,4g#.,4f.,1g,32p";
+            if (!string.IsNullOrEmpty(parameters.Rttl))
+            {
+                Tune = rttlConverter.Parse(parameters.Rttl);
+                Partition = nokiaComposerConverter.ToString(Tune);
+            }
         }
 
         #region KeyPressesCommand

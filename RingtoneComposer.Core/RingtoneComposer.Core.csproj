@@ -63,6 +63,7 @@
     <Compile Include="Business\Oscillator\SquareOscilator.cs" />
     <Compile Include="Business\Pause.cs" />
     <Compile Include="Business\Enum\Pitches.cs" />
+    <Compile Include="ComposerParameters.cs" />
     <Compile Include="Interfaces\ISoundPlayer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Business\Enum\Scales.cs" />
